@@ -1,0 +1,1030 @@
+\section{Chern-Simons theory}
+
+\textit{Taken from page 18, 61 of my PHYS733 notes and \cite{baez1994gauge-fields-kn}}.
+
+
+\subsection{Gauge theory basics}
+
+Consider a \( d \)-dimensional manifold \( M \) and a bundle \( E \to M \).
+A vector potential \( A \) is a \( \End(E) \)-valued one-form; that is, \( A \in \Gamma(T^\ast M \otimes \End(E)) \).
+\( A \) is defined by the connection \( D \). It turns out that any connection \( D \) can be written as \( D_v s = D_v^0 s + A(v) s \) (where \( D_v s \) denotes the covariant derivate of a section \( s \in \Gamma(E) \) wrt the vector field \( v \in \Gamma(TM) \)). Here \( D^0 \) denotes some trivial flat connection, which depends on a choice of local trivialization of \( E \). On each local patch \( U \), then, we get \( D_\mu = \partial_\mu + A_\mu  \). Locally, we can pick a basis \( \set{T_i} \) of \( \End(E\rvert_U) \) and write \( A_\mu = A_\mu^i T_i \).
+
+Let's recall the relationship between \( A \) and the Christoffel symbols. For just this paragraph then, we consider \( E = TM \).
+Pick a local basis $e_1,\dots, e_d$ for sections of $TM$. The Christoffel symbols are defined as $D_\mu e_\nu = \Gamma^\lambda_{\mu\nu}e_\lambda$. In a similar way, recall that $D_\mu e_\nu = \partial_\mu e_\nu + A_\mu e_\nu = A_\mu e_\nu$. Since $A_\mu$ is in $\End(E)$, we can write it as $A_\mu = (A_\mu)^\lambda_\rho e_\lambda \otimes e^\rho$, where $e^\rho$ is the dual basis. Hence, $A_\mu e_\nu = (A_\mu)^\lambda_\rho e_\lambda e^\rho(e_\nu)  = (A_\mu)^\lambda_\nu e_\lambda$. Thus, $(A_\mu)^\lambda_\nu = \Gamma^\lambda_{\mu\nu}$.
+By the way, when \( E = TM \), the curvature (defined below) is the Riemann curvature tensor. The Riemann curvature tensor can be written in terms of the Christoffel symbols in the same way that the curvature can be written in terms of the gauge field.
+
+If we assume that our \( F \)-fiber bundle \( E \) has structure group \( G \), then we enforce that the transition functions be maps from overlapping trivialization charts \( U_i \cap U_j \) to \( G \), where \( G \) acts on \( F \). That is, if \( (x_1,\dots, x_d, f^{(i)}(\bm x)) \in U_i \times F \) and \( (y_1,\dots, y_d, f^{(j)}(\bm y)) \in U_j \times F \), then on the overlap where \( \bm x, \bm y \) describe the same point in \( U_i \cap U_j \), \( f^{(j)}(\bm y) = g(\bm x) f^{(i)}(\bm x) \), where \( g(\bm x) \in G \) is a continuous map.
+
+On such an intersection, we have that \( \frac{\partial}{\partial x^\mu} = \frac{\partial y^\nu}{\partial x^\mu} \frac{\partial}{\partial y^\nu} \). Let \( v \) be locally \( \frac{\partial}{\partial x^\mu}  \) and \( s = (x_1,\dots, x_d, f^{(i)}(\bm x)) = (y_1,\dots, y_d, f^{(j)}(\bm y)) = (y_1(\bm x),\dots, y_d(\bm x), g(\bm x) f^{(i)}(\bm x) )  \). Then in the \( x \) trivialization,
+\begin{salign}
+    (D_v s )(\bm x)
+    %
+    &= \frac{\partial}{\partial x^\mu} s + A_\mu(\bm x) s \\
+    %
+    &= \parentheses{ x_1,\dots, x_d, \frac{\partial f^{(i)}(\bm x)}{\partial x^\mu} + A_\mu(\bm x) f^{(i)}(\bm x) } .
+    %
+\end{salign}
+Whereas in the \( y \) trivialization,
+\begin{salign}
+    %
+    (D_v s )(\bm x)
+    %
+    &= \frac{\partial}{\partial x^\mu} s + A'_\mu(\bm y(\bm x)) s \\
+    %
+    &= \parentheses{ y_1(\bm x),\dots, y_d(\bm x), \frac{\partial}{\partial x^\mu} f^{(j)}(\bm y(\bm x)) + A'_\mu(\bm y(\bm x)) f^{(j)}(\bm y(\bm x)) } \\
+    %
+    &= \parentheses{ y_1(\bm x),\dots, y_d(\bm x), \frac{\partial}{\partial x^\mu} g(\bm x) f^{(i)}(\bm x) + A'_\mu(\bm y(\bm x)) g(\bm x) f^{(i)}(\bm x) } \\
+    %
+    &= \parentheses{ y_1(\bm x),\dots, y_d(\bm x), \frac{\partial g(\bm x)}{\partial x^\mu} f^{(i)}(\bm x) + g(\bm x)\frac{\partial f^{(i)}(\bm x)}{\partial x^\mu}  + A'_\mu(\bm y(\bm x)) g(\bm x) f^{(i)}(\bm x) } \\
+    %
+    &= \parentheses{ y_1(\bm x),\dots, y_d(\bm x), \brackets{ \frac{\partial g(\bm x)}{\partial x^\mu}  + A'_\mu(\bm y(\bm x)) g(\bm x) } f^{(i)}(\bm x)  + g(\bm x)\frac{\partial f^{(i)}(\bm x)}{\partial x^\mu} } .
+\end{salign}
+Recall based on our definition of the transition functions, \( \parentheses{x_1, \dots, x_d, f^{(i)}(\bm x)} \) in the \( x \) trivialization is the same as \( \parentheses{y_1(\bm x), \dots, y_d(\bm x), g(\bm x) f^{(i)}(\bm x)} \) in the \( y \) trivialization. Hence, we find that
+\begin{equation}
+    g(\bm x)^{-1} \curlybrackets{\brackets{ \frac{\partial g(\bm x)}{\partial x^\mu}  + A'_\mu(\bm y(\bm x)) g(\bm x) } f^{(i)}(\bm x)  + g(\bm x)\frac{\partial f^{(i)}(\bm x)}{\partial x^\mu}} = \frac{\partial f^{(i)}(\bm x)}{\partial x^\mu} + A_\mu(\bm x) f^{(i)}(\bm x).
+\end{equation}
+Hence,
+\begin{equation}
+    A_\mu(\bm x) =  g(\bm x)^{-1}\frac{\partial g(\bm x)}{\partial x^\mu}  + g(\bm x)^{-1}A'_\mu(\bm y(\bm x)) g(\bm x).
+\end{equation}
+Thus, vector potentials related by such a \textit{gauge transformation} represent the same connection, just with a different choice of local coordinates. Changing the location of the primes and \( g \to g^{-1} \) as a convension, we have that
+\begin{equation}
+    \label{eq:gauge-transformation}
+    A' = g A g^{-1} + g \dd g^{-1}.
+\end{equation}
+
+The curvature is a \( \End(E) \)- valued \( 2 \)-form is defined by \( F(v, w) = D_v D_w - D_w D_v - D_{[v, w]} \). That is, \( F \in \Gamma(\Omega^2(M) \otimes \End(E)) \).
+Note that our definition of \( A \) only makes sense in local coordinates, since \( D = D^0 + A \) and \( D^0 \) depends on local trivializations\footnote{Once we have a choice of \( D^0 \), \( A \) makes sense as a global one form I think. But the point is that \( A \) as a one-form depends on our choice of \( D^0 \), which depends on local trivializations. We will show below that in local coordinates under a gauge transformation, \( F \to g F g^{-1} \), so that \( \Tr(F) \) is a globally-defined gauge invariant two-form.}. However, \( F \) makes since globally. We will see below what \( F \) looks like in terms of \( A \) locally.
+
+The intuition of this definition is that we can measure the curvature of a manifold by how much that partial derivative don't commute. But vector fields in general don't commute, so we need to subtract the Lie bracket of the vector fields to compensate. For example, consider a trivial bundle \( M \times V \), and a section (function since the bundle is trivial) \( f \colon M \to V \). Given two vector fields \( v, w \), we have \( [v,w](f) = v(w(f)) - w(v(f)) \), which is not in general zero. It's not too hard to show that \( F(v, w)(fs) = f F(v, w)s \) for any section \( s \in \Gamma(E) \) and any function \( f \in C^\infty(M) \); this proves that \( F(v, w) \in \Gamma(\End(E)) \).
+Furthermore, \( F \) is linear in both its arguments, so that in local coordinates
+\begin{equation}
+    F(v, w) = v^\mu w^\nu F(\partial_\mu, \partial_\nu) = v^\mu w^\nu F_{\mu\nu}.
+\end{equation}
+One can then work out that
+\begin{equation}
+    F_{\mu\nu} = \partial _\mu A_\nu - \partial_\nu A_\mu + [A_\mu, A_\nu].
+\end{equation}
+It is also easy to see that \( F(v, w) \) is antisymmetric, so that at least locally\footnote{Do we need to do something else to make sure this is well-defined globally or is it fine as is?}
+\begin{equation}
+    F = F_{\mu\nu} \dd x^\mu \otimes \dd x^\nu = \frac{1}{2} F_{\mu\nu} \dd x^\mu \wedge \dd x^\nu,
+\end{equation}
+so that \( F \) is indeed a two-form. Indeed, from above, we have that
+\begin{salign}
+    \dd A + A \wedge A
+    %
+    &= \partial_\mu A_\nu \dd x^\mu \wedge \dd x^\nu + A_\mu A_\nu \dd x^\mu \wedge \dd x^\nu \\
+    %
+    &= \frac{1}{2} \parentheses{ \partial_\mu A_\nu \dd x^\mu \wedge \dd x^\nu + \partial_\mu A_\nu \dd x^\mu \wedge \dd x^\nu + A_\mu A_\nu \dd x^\mu \wedge \dd x^\nu + A_\mu A_\nu \dd x^\mu \wedge \dd x^\nu} \\
+    %
+    &= \frac{1}{2} \parentheses{ \partial_\mu A_\nu \dd x^\mu \wedge \dd x^\nu - \partial_\mu A_\nu \dd x^\nu \wedge \dd x^\mu + A_\mu A_\nu \dd x^\mu \wedge \dd x^\nu - A_\mu A_\nu \dd x^\nu \wedge \dd x^\mu} \\
+    %
+    &= \frac{1}{2}F_{\mu\nu}\dd x^\mu \wedge \dd x^\nu \\
+    %
+    &= F.
+\end{salign}
+Then, using properties of the exterior derivate, a gauge transformation acts as
+\begin{salign}
+    F'
+    %
+    &= \dd (g A g^{-1} + g \dd g^{-1}) + (g A g^{-1} + g \dd g^{-1}) \wedge (g A g^{-1} + g \dd g^{-1}) \\
+    %
+    \begin{split}
+        &= \dd g \wedge A g^{-1} + g \dd A g^{-1} - g A \wedge \dd g^{-1} + \dd g \wedge \dd g^{-1} + g A g^{-1}  \wedge g A g^{-1} \\
+        &\qquad + g A g^{-1} \wedge g \dd g^{-1} + g \dd g^{-1} \wedge g A g^{-1}  + g \dd g^{-1} \wedge g \dd g^{-1}
+    \end{split}\\
+    %
+    \begin{split}
+        &= \dd g \wedge A g^{-1} + g \dd A g^{-1} + A_g \wedge \dd g g^{-1} - \dd g \wedge g^{-1} \dd g g^{-1} + A_g  \wedge A_g \\
+        &\qquad - A_g \wedge \dd g g^{-1} - \dd g g^{-1} \wedge A_g  +  \dd g g^{-1} \wedge \dd g g^{-1}
+    \end{split}\\
+    %
+    &= g \dd A g^{-1} + \dd g g^{-1} \wedge A_g + A_g \wedge \dd g g^{-1} - \dd (\dd g g^{-1}) + A_g  \wedge A_g  - A_g \wedge \dd g g^{-1} - \dd g g^{-1} \wedge A_g  + \dd (\dd g g^{-1}) \\
+    %
+    &= g \dd A g^{-1} + A_g  \wedge A_g  + \dd g g^{-1} \wedge A_g + A_g \wedge \dd g g^{-1}  - A_g \wedge \dd g g^{-1} - \dd g g^{-1} \wedge A_g  \\
+    %
+    &= g F g^{-1}  + \dd g g^{-1} \wedge A_g + A_g \wedge \dd g g^{-1}  - A_g \wedge \dd g g^{-1} - \dd g g^{-1} \wedge A_g  \\
+    %
+    &= g F g^{-1},
+\end{salign}
+where we defined \( A_g = g A g^{-1} \) and used that \( g g^{-1} = 1 \) so that \( \dd g g^{-1} + g \dd g^{-1} = 0 \), and that \( \dd (\dd g g^{-1}) = -\dd g \wedge \dd g^{-1} = \dd g \wedge g^{-1} \dd g g^{-1}  = \dd g g^{-1} \wedge \dd g g^{-1} \).
+
+Now, when working with a structure group \( G \), we have the associated bundle to a vector bundle \( E \). Suppose for example that \( G = \U(n) \) and \( E \) a \( \bbC^n \) vector bundle. When we choose \( G = \U(n) \), we are adding an additional structure that moving from patch to patch should not change the norm of a vector. With our additional structure, we want a connection that when parallel transporting a vector does not change the norm. For example, suppose in local coordinates \( s = (\bm x, v(\bm x)) \) is a local section. This section is the parallel transport of \( (\bm x_0, v(\bm x_0)) \) along the \( \mu \) direction if \( D_\mu s = 0 \) at \( \bm x_0 \). Hence \( \partial_\mu v(\bm x_0) = - A_\mu v(\bm x_0) \). The change in norm squared of the vector is \( (\partial_\mu v)^T v + v^T (\partial_\mu v) = - v^T( A_\mu^T + A_\mu) v \). For this to be zero, \( A_\mu \) must be in Lie algebra of \( \U(n) \). We can perform similar analysis for more general groups. That's why we generally want \( A \) to be Lie algebra valued rather than just \( \End(E) \) valued. So in summary, \( A \in \Gamma(\mathfrak g \otimes T^\ast M) \). One thing to mention is that if we specifically work with the associated principle \( G \)-bundle, then \( A \) \textit{must} be Lie algebra valued. For example, consider the \( \U(n) \)-bundle and a local section \( (\bm x, g(\bm x)) \). \( g(\bm x) \) is a parallel transport if \( \partial_\mu g(\bm x_0) = - A_\mu g(\bm x_0) \). \( g \) can be written as \( \e^{B(\bm x)} \) for \( B \) in the Lie algebra, thus giving \( \partial_\mu B(\bm x_0) = -A_\mu \). Since the Lie algebra is a vector space, \( \partial_\mu B(\bm x_0) \) is an element of the Lie algebra, so that \( A_\mu \) must be as well.
+
+Define the \textbf{exterior covaiant derivative} \( \dd_D \) wrt the connection \( D \) as follows. \( \dd_D \) will act on \( E \) valued differential forms; that is, elements of \( \Gamma(\Omega^m(M) \otimes E) \). It will also act on \( \End(E) \) valued forms. Recall the formula \( \dd f(v) = v(f) \). We generalize this as
+\begin{salign}
+    &\dd_D s(v) \coloneqq D_v s \qquad s \in \Gamma(E) \\
+    %
+    &\dd_D(s \otimes \omega) \coloneqq \dd_D s \wedge \omega + s \otimes \dd\omega \qquad \omega \in \Omega^m(M).
+\end{salign}
+This can naturally extend to acting on \( \End(E) \) valued forms (see around page 251).
+In local coordinates, \( \dd_D s = D_\mu s \otimes \dd x^\mu \).
+As before, when working locally we used \( D_\mu^0 = \partial_\mu \) so that \( \dd_{D^0} = \dd  \). From \( D = D^0 + A \), one can show that \cite[p.~259]{baez1994gauge-fields-kn}
+\begin{salign}
+    &\dd_D\omega = \dd \omega + A \wedge \omega \qquad \omega \in \Gamma(\Omega^m(M) \otimes E) \\
+    %
+    &\dd_D\eta = \dd \eta + [A, \eta] \qquad \eta \in \Gamma(\Omega^m(M) \otimes \End(E)),
+\end{salign}
+where
+\begin{equation}
+    [\omega, \eta] \coloneqq \omega\wedge \eta - (-1)^{pq} \mu \wedge \eta \qquad \omega \in \Gamma(\Omega^p(M) \otimes \End(E)), \quad \eta \in \Gamma(\Omega^q(M) \otimes \End(E)).
+\end{equation}
+
+
+\subsection{Holonomy and Wilson loops}
+
+Consider locally a vector \( s(t) = (\bm \gamma(t), f(t)) \) valued in \( E \), and consider a path \( \bm\gamma(t)\). \( s(t) \) is parallel transported along \( \gamma(t) \) if \( D_{\dot \gamma(t)} s(t) = 0 \). This becomes \( \dot \gamma^\mu(t) \partial_\mu f(\bm \gamma(t)) = - \dot \gamma^\mu(t) A_\mu f(t) \). Hence, we have \( \dot f(t) =- \dot \gamma^\mu(t) A_\mu f(t) \). The solution is \( f(t) = P \exp\brackets{-\int_0^t A_\mu \dot\gamma^\mu \dd t} f(0) \). But this is exactly a line integral along the path \( \gamma(t) \). Hence, we find that the \textbf{holonomy} is
+\begin{equation}
+    \label{eq:holonomy}
+    H(\gamma, A) = P \exp\bargs{-\int_\gamma A} .
+\end{equation}
+Note that when \( A \) defines a \( G \)-connection (i.e.~\( A \) is \( \mathfrak g \)-valued), then \( H(\gamma, A) \in G \).
+
+Let's assume wlog that the start of the path is \( t=0 \) and end is \( t=1 \). Consider a gauge transformaton \( A \to A' \). We know that the fiber \( f(t) \) in one gauge (trivialization) is related to the the fiber in the other gauge via \( f(t) \to g(\gamma(t))f(t) \) for \( g(\gamma(t)) \in G \). Hence \( f(1) = H(\gamma, A)f(0) \) and \( g(\gamma(1)) f(1) = H(\gamma, A') g(\gamma(0)) f(0) \). Thus, under a gauge transformation, \( H(\gamma, A) \to g(\gamma(1))^{-1} H(\gamma, A) g(\gamma(0)) \). Recall again though as above, usually the convension for a gauge transformation swaps inverses compared to what I just did. Thus, under a gauge transformation, the holonomy transforms as
+\begin{equation}
+    H(\gamma, A) \to g(\gamma(1)) H(\gamma, A) g(\gamma(0))^{-1}.
+\end{equation}
+
+The holonomy around a loop \( \gamma(0) = \gamma(1) \) is an endomorphism on \( E_{\gamma(0)} \). Since \( g(\gamma(0)) = g(\gamma(1)) \), we see that the \textbf{Wilson loop} \( \Tr(H(\gamma, A)) \) is gauge invariant.
+
+Let's restrict ourselves to closed loops \( \gamma \) from now on. Consider the case when \( \gamma \) is contractable (homotopically trivial). Then \( \gamma \) is the boundary of some surface \( S \). If \( G \) is abelian, then we can apply Stokes theorem to find that
+\begin{equation}
+    H(\gamma_{\rm trivial loop}, A_{\rm abelian})
+    %
+    = \exp\bargs{-\oint_\gamma A} \\
+    %
+    = \exp\bargs{-\int_S \dd A} \\
+    %
+    = \exp\bargs{-\int_S F} .
+\end{equation}
+Thus, the holonomy group around trivial loops is trivial if and only if the connection is flat / the curvature vanishes. This same result holds in the non-Abelian case, but it is less trivial to prove because of the path ordering. We cannot simply apply Stoke's theorem. So we won't show it here, but I think it is the Ambrose-Singer theorem\footnote{See also \href{https://mathoverflow.net/questions/345857/flat-connections-curvature-and-holonomy}{here}}. When the connection is flat, then holonomy is equal to monodromy; that is, the only nontrivial holonomies comes from nontrivial loops. Hence, the holonomy group forms a representation of the fundamental group of \( M \).
+
+
+
+
+\subsection{Yang-Mills}
+
+If \( T \) is a section of \( \End(E) \), we define the trace \( \Tr(T)\colon \calM \to \bbC \) as \( p \mapsto \Tr(T(p)) \)\footnote{I probably should have mentioned a while ago that we are of course working with a fixed representation of \( G \) throughout, and with this we define a trace. I am always assuming that \( G \) is a matrix Lie group so that the trace is just the ordinary trace.}. Similarly, for any differential form \( \omega \), we define \( \Tr(T \otimes \omega) = \Tr(T) \omega \).
+%
+The Yang-Mills (YM) action is
+\begin{equation}
+    S_{YM}(A) = \frac{1}{2} \int_M \Tr(F \wedge \star F) = \frac{1}{2} \int_M \Tr(F_{\mu\nu}F^{\mu\nu}) \mathrm{vol},
+\end{equation}
+where \( \star \) is the Hodge star operator, which of course contains metric information. Since it contains metric information, this is not a topological field theory. Since \( F \to g F g^{-1} \) under a gauge transformation, the YM actions is trivially gauge invariant.
+
+Let's consider a variation \( A \to A + \delta A \). Then
+\begin{equation}
+    \delta F
+    %
+    = \dd \delta A + A \wedge \delta A + \delta A \wedge A + \bigO{\delta A^2} \\
+    %
+    = \dd_D \delta A.
+\end{equation}
+A variation of the action gives
+\begin{equation}
+    \delta S_{YM} = \frac{1}{2}\int_M \Tr(\delta F \wedge \star F + F \wedge \star \delta F) = \int_M \Tr(\delta F \wedge \star F) = \int_M \Tr(\dd_D \Delta A \wedge \star F) = \int_M \Tr(\delta A \wedge \dd_D \star F),
+\end{equation}
+where we used \cite[Exercise~119]{baez1994gauge-fields-kn}. Hence the classical EOM for the YM action is \( \dd_D \star F = 0 \).
+
+
+\subsection{Chern classes}
+\label{sec:chern-classes}
+
+The YM action treats the metric as a fixed background structure. But given that in general relativity, the metric should be dynamical, there's a basic philosophy that fixed background structures are undesirable. Instead, we often want an action where everything is being integrated over.
+With this in mind,
+consider instead the action
+\begin{equation}
+    S(A) = \int_M \Tr(F^n) = \int_M \Tr(F \wedge \dots \wedge F)
+\end{equation}
+when \( M \) is a \( 2n \) dimensional manifold, which is again trivially gauge invariant.
+The Lagrangian density is the \( n^{\rm th} \) \textbf{Chern form}. We consider the variation
+\begin{equation}
+    \delta S
+    %
+    = n \int_M \Tr(\delta F \wedge F^{n-1})
+    %
+    = n \int_M \Tr(\dd_D \delta A \wedge F^{n-1}) \\
+    %
+    = n \int _M \Tr(\delta A \wedge \dd_D F^{n-1}).
+\end{equation}
+The Bianchi identity takes the form \( \dd_D F = 0 \) \cite[p.~255]{baez1994gauge-fields-kn}. Hence, with Leibniz's law, we have that \( \dd_D F^{n-1} = 0 \).
+What we therefore realize is that \( S(A) \) is independent of \( A \), so that \( S(A) \) is a topological invariant of the bundle \( E \to M \)! \textit{Any} connection on \( E \) yields the same invariant.
+
+Furthermore, \cite[Exercise~118]{baez1994gauge-fields-kn} says that \( \Tr(\dd_D \omega) = \dd \Tr(\omega) \) for an \( \End(E) \) valued form \( \omega \). This implies that the \( n^{\rm th} \) \textbf{Chern form} \( \Tr(F^k) \) is closed, \( \dd \Tr(F^k) = \Tr(\dd_D F^k) = 0 \). Hence, the Chern form defines a cohomology class in \( H^{2k}(M) \). The Chern form itself depends on the connection \( A \), but the cohomology class does not, since if we change \( A \) the Chern form changes by an exact form \cite[p.~281]{baez1994gauge-fields-kn}
+\begin{salign}
+    \Tr(F^{'k}) - \Tr(F^k) = k \dd \pargs{\int_0^1 \Tr(\delta A \wedge F_s^{k-1}) \dd s}, \qquad \delta A = A' - A, \quad A_s = A + s \delta A .
+\end{salign}
+We can therefore define the \( k^{th} \) \textbf{Chern class} \( C_k(E) \) of the vector bundle \( E \to M \) to be the cohomology class of \( \Tr(F^k) \), where \( F \) is the curvature of \textit{any} connection on \( E \).
+It turns out that when \( M \) is compact and oriented,
+\begin{equation}
+    \frac{(\i/2\pi)^k}{k!} \int_N \Tr(F^k) \in \bbZ
+\end{equation}
+for any compact oriented manifold \( N \) mapped into \( M \) \cite[pp.~282]{baez1994gauge-fields-kn}.
+\note{I think this is related to the Pontragin characteristic classes. Indeed, when the manifold has a spin structure, using the index theorem once can show that the Pontragin class is divisible by 2 \cite[pp.~7]{dijkgraaf1990topological-gau}. Work through this!}
+
+\begin{example}[Quantization of the first Chern class of a \( \U(1) \) connection\footnote{See eg.~\url{https://physics.stackexchange.com/a/678862/114833}}]
+    Consider \( A \) a \( \U(1) \) connection and \( M \) a two-dimensional closed manifold.
+    Let \( \gamma \) be a contractable loop.
+    Recall that \( H(\gamma, A) \in \U(1) \), and by definition \cref{eq:holonomy}, \( H(\gamma^{-1}, A) = \overline{H(\gamma, A)} \).
+    Using this and Stoke's theorem (since \( \gamma \) is contractable), we have
+    \begin{equation}
+        1
+        %
+        = H(\gamma^{-1}, A) H(\gamma, A)
+        %
+        = \exp\bargs{-\oint_\gamma A - \oint_{\gamma^{-1}} A}
+        %
+        = \exp\bargs{-\int_{\text{int of }\gamma} \dd A - \int_{\text{ext of }\gamma} \dd A}
+        %
+        = \exp\bargs{-\int_M F}.
+    \end{equation}
+    Thus, we find that \( \frac{1}{2\pi\i}\int_M F \in \bbZ \).
+    In the physicists convension, \( F \to F/\i \), so that you will often see instead \( \int_M F \in 2\pi \bbZ \).
+\end{example}
+
+
+\begin{example}
+    We have been assuming that a particle coupled to \( A \) (ie.~a section of \( A \)) picks up a phase \( \e^{\int A} \). In reality, it picks up \( \e^{\frac{q}{\hbar} \int A} \). Thus, we have implicitly set \( q/\hbar = 1 \).
+    This means that the true magnetic field is \( \frac{\hbar}{q} \) times the curl of \( A \), where \( A \) is the same \( A \) we have been working with.
+
+    If we have a different charged particle, it corresponds to a different bundel \( E' \).
+    It is different because the fibre is a representation of \( \U(1) \). The representations of \( \U(1) \) are labeled by integers. Thus, all particles have charge that is an integer multiple of some fundamental charge \( q \).
+
+    Suppose that we have a magnetic monopole of charge \( g \) at the origin.
+    This means that the vector potential cannot be defined for all of space.
+    In other words, \( \nabla \cdot B = g \delta(x) \).
+    Instead, we can think about defining the gauge field on the spacetime manifold \( \bbR^4 \setminus \bbR \cong \bbR^2 \times S^2 \simeq S^2 \) (spacetime with time trajectory of one particle taken out).
+    Since there is a magnetic monopole, we get
+    \begin{equation}
+        g = \int_{S^2} B \cdot \hat n = \frac{\hbar}{q} \int_{S^2} F = 2\pi \frac{\hbar}{q} C_1(E) = h C_1(E) / q.
+    \end{equation}
+    Thus, we get the Dirac charge quantization condition \( gq \in h \bbZ \).
+    See also \cite{rosenberg2013dualities-in-fi}.
+\end{example}
+
+
+% \begin{example}[Dirac quantization condition \cite{rosenberg2013dualities-in-fi}]
+%     \note{Finish this!}
+%     Suppose we have a spacetime \( 4 \)-manifold \( M = \bbR^4\setminus \bbR \cong \bbR^2 \times S^2 \) (Minkowski space with the time trajector of one particle taken out).
+%     We have some complex line bundle \( L \) over \( M \) indicating a charged particle coupled to (via electric charge \( q \)) to the gauge field.
+%     In other words, the gauge field \( A \) is the \( \U(1) \) connection on the principle bundle associated to \( L \).
+%     Define \( F \) to be \( \i\mu \dd A \).
+%     If we integrate \( F \) over \( S^2 \) that links the worldline of the particle, we get (as above) \( 2\pi \mu c_1(L) \),
+%     This is of course the flux of the magnetic field through \( S^2 \).
+%     So the removed worldline can be identified with a magnetic monopole of charge \( g = \mu c_1(L) \).
+%     Meanwhile, if we were to take a charge particle of charge \( q \) and move it around a closed loop \( \gamma \), we pick up a phase \( \exp\bargs{-q\mu \oint_\gamma A} \) \note{why is the \( \mu \) here?}.
+
+%     \( M \) is simply connected so that \( \exp\bargs{-q\mu \oint_\gamma A} = \exp\bargs{-q\int_D F} \), where \( D \) is either of the hemispheres of the sphere.
+%     Therefore, \( 1 = \exp\bargs{-q\int_M F} = \exp\bargs{2\pi \i q \mu c_1(L)} \).
+%     So \( qg\in \bbZ \).
+% \end{example}
+
+
+
+\begin{example}[\( \U(1) \) vs \( \bbR \) gauge field\footnote{See eg.~\url{https://physics.stackexchange.com/a/617965/114833}}]
+    Notice from above that the choice of a \( \U(1) \) gauge theory immediately implied the electric charge must be integer multiples of some fundamental unit of charge (that is, a charged particle is a section of a line bundle which depends on a choice of representation of \( \U(1) \)) \note{check this}.
+    Quantization of magnetic charge comes from Chern classes.
+
+    The same is not true for an \( \bbR \) gauge theory.
+    The Lie algebra is the same as in the \( \U(1) \) case, but the topology of the group is different.
+    Here, we have many more representations.
+    Furthermore, we don't get even get magnetic monopoles. Let's see how that works.
+
+    % In \( \bbR \) gauge theory, group elements are \( g = \e^r \), with \( r \) being Lie algebra elements. So gauge transformations are \( A \to A - \dd r \).
+    % Compare this to the \( \U(1) \) case where we get \( A \to A - \i \dd f \).
+    Recall from above we found that \( g \propto \int_{S^2} F \).
+    This gives us
+    \(
+    g \propto \int_N F + \int_S F = \int_E (A_N - A_S),
+    \)
+    where \( N,S \) refer the northern and southern hemisphere and \( E \) to the equator, and we used Stoke's theorem.
+    On the overlapping area \( E \) where \( A_N \) and \( A_S \) are defined, they must differ only by a gauge transformation.
+    % So in the \( \bbR \) case, \( g \propto \int_E \dd r \), and in the \( \U(1) \) case, \( g \propto \int_E \dd f \). 
+
+    % To see the difference, recall that \( \dd f \) is coming from \( g \dd g^{-1} \) (cf.~\cref{eq:gauge-transformation}), with \( g = \e^{\i f} \), and \( r \) is coming from \( g\dd g^{-1} \), with \( g = \e^{r} \). \( g \) must be a well-defined function on \( E \), meaning that \( r(\theta=0) = r(\theta=2\pi) \) and \( f(\theta=2\pi) - f(\theta=0) \in 2\pi \bbZ \), where \( \theta \) parameterizes the circle at the equator \( E \). 
+    % Thus, in the case of \( \U(1) \), \( g \propto 2\pi \bbZ \), and in the case of \( \bbR \), \( g =0 \).
+
+    Recalling \cref{eq:gauge-transformation}, this tells us that \( g \propto \int_E g \dd g^{-1} = - \int_E \dd g g^{-1} \).
+    Parameterize the equator \( E \) by \( z = \e^{\i\theta} \), giving
+    \( g \propto \oint_{\abs{z}=1} g'(z)g(z)^{-1} \dd z \).
+    For \( g(z) \in \U(1) \), we could for example let \( g(z) = z \). This is a totally well-defined gauge transformation. This results in \( g \propto 1 \), by the residue theorem.
+    On the other hand, for \( \bbR \) gauge fields, we have \( g \) of the form \( e^r \), so that \( g(z) = \e^{r(z)} \), with \( r(z) \in \bbR  \). This yields \( g \propto \oint r'(z) \dd z  \).
+    In order for \( g(z) = \e^{r(z)} \in \bbR \) to be a well-defined function on \( E \), it must be that \( r(z) \) is a well-defined function on \( E \) (this is not the case for \( \e^{\i\theta(z)} \)). Therefore, \( g \propto \oint r'(z) \dd z = 0 \).
+
+    \note{\url{https://www.reddit.com/r/AskPhysics/comments/1ep7qj3/if_em_gauge_group_were_r_instead_of_u1/}, \url{https://www.reddit.com/r/AskPhysics/comments/lelerj/comment/gmi1nqo/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button} relevant for \( \bbR \) gauge theory. In particular, if you just have pure gauge theory, then \( \U(1) \) and \( \bbR \) gauge theory seem to be the same (you can just see this from the equations of motion). But once you couple to, say, a scalar field, you get different Lagrangians depending on the gauge field. }
+
+    In general, regardless of classical or quantum, we have the following\footnote{\url{https://physics.stackexchange.com/a/353848/114833}}. In a pure gauge theory (either with no couplings or with couplings only to external currents), we can't tell the difference between the gauge group being \( G \) or being a covering \( \tilde G \) of \( G \). This is because the Lie algebras are the same. However, once we couple to other fields, the choice of \( G \) matters because of the way the fields transform under a guage transformation.
+\end{example}
+
+
+\subsection{Chern-Simons theory}
+
+Recall that \( \Tr(F^k) \) is the \( k^{\rm th} \) Chern form. The \( k^{\rm th} \) \textbf{Chern-Simons form} is the \( \End(E) \)-valued \( (2k-1) \) form \( \omega \) satisfying \( \dd \omega = \Tr(F^k) \). In the case of \( k=1 \), we have that \( \dd \Tr(A) = \Tr(\dd_D A) \) from above, and \( \dd_D A = \dd A + A \wedge A = F \). Hence, \( \Tr(A) \) is the first Chern Simons form.
+
+For \( k=2 \), we have that
+\begin{salign}
+    \dd \Tr(A \wedge \dd A + \frac{2}{3} A \wedge A \wedge A)
+    %
+    &= \Tr(\dd_D(A \wedge \dd A) + \frac{2}{3} \dd_D (A \wedge A \wedge A) ) \\
+    %
+    &= \Tr( \dd(A \wedge \dd A) + A \wedge A \wedge \dd A + \frac{2}{3} \dd(A \wedge A \wedge A) + \frac{2}{3} A \wedge A \wedge A \wedge A ) \\
+    %
+    &= \Tr( \dd(A \wedge \dd A) + A \wedge A \wedge \dd A + \frac{2}{3} \dd(A \wedge A \wedge A))  \\
+    %
+    &= \Tr( \dd A \wedge \dd A + A \wedge A \wedge \dd A + \frac{2}{3} \dd A \wedge A \wedge A - \frac{2}{3}A \wedge \dd A \wedge A + \frac{2}{3}A \wedge A \wedge \dd A) \\
+    %
+    &= \Tr( \dd A \wedge \dd A + A \wedge A \wedge \dd A + 2 A \wedge A \wedge \dd A)  \\
+    %
+    &= \Tr((\dd A + A \wedge A) \wedge (\dd A + A \wedge A)) \\
+    %
+    &= \Tr(F \wedge F),
+\end{salign},
+where we used that
+\begin{salign}
+    \Tr(A \wedge A \wedge A \wedge A)
+    %
+    &= \Tr(A_\mu A_\nu A_\rho A_\sigma) \dd x^\mu \wedge \dd x^\nu \wedge \dd x^\rho \wedge \dd x^\sigma \\
+    %
+    &= \frac{1}{2}\Tr(A_\mu A_\nu A_\rho A_\sigma)\parentheses{ \dd x^\mu \wedge \dd x^\nu \wedge \dd x^\rho \wedge \dd x^\sigma - \dd x^\sigma \wedge \dd x^\mu \wedge \dd x^\nu \wedge \dd x^\rho }   \\
+    %
+    &= \frac{1}{2}\Tr(A_\mu A_\nu A_\rho A_\sigma - A_\sigma A_\mu A_\nu A_\rho ) \dd x^\mu \wedge \dd x^\nu \wedge \dd x^\rho \wedge \dd x^\sigma \\
+    %
+    &= 0.
+\end{salign}
+Thus, the \textbf{Chern-Simons three-form} is
+\begin{equation}
+    \Tr(A \wedge \dd A + \frac{2}{3} A \wedge A \wedge A).
+\end{equation}
+The \textbf{Chern-Simons action} for the vector potential \( A \) on a \( 3 \)-dimensional space \( S \) is
+\begin{equation}
+    S_{\rm CS}(A) = \int_S \Tr(A \wedge \dd A + \frac{2}{3}A \wedge A \wedge A) .
+\end{equation}
+
+The classical equations of motion come from \( A \to A + a \) and expanding to first order in \( a \):
+\begin{salign}
+    S_{\rm CS}(A+ a) - S_{\rm CS}(A)
+    %
+    &= \int_S \Tr \bargs{a \wedge \dd A + A \wedge \dd a + \frac{2}{3} \parentheses{a \wedge A \wedge A + A \wedge a \wedge A + A \wedge A \wedge a}} \\
+    %
+    &= \int_S \Tr \bargs{a \wedge \dd A + \dd (A + a) - \dd A \wedge a + \frac{2}{3} \parentheses{a \wedge A \wedge A + A \wedge a \wedge A + A \wedge A \wedge a}} \\
+    %
+    &= \int_S \Tr \bargs{2 a \wedge \dd A + 2 a \wedge A \wedge A } \\
+    %
+    &= 2\int_S \Tr(a \wedge F),
+\end{salign}
+where we used that \( \Tr(A \wedge a) = -\Tr(a \wedge A) \) and \( \Tr (a \wedge A \wedge A) = \Tr(A \wedge a \wedge A) = \Tr(A \wedge A \wedge a) \) by a similar argument that we used above to prove that \( \Tr(A^4) = 0 \). Hence, the classical EOM for CS theory is vanishing curvature \( F = 0 \). That is, classical solutions to \( G \) CS theory are flat connections. Since flat connections are determined entirely my monodromies (holonomies around nontrivial cycles), we see that classical solutions are in one-to-one correspondence with \( \Hom(\pi_1(M), G) / \sim \), where \( \sim \) denotes conjugation by \( G \).
+Consider for example a \( (2+1) \)D spacetime \( \bbR \times T^2 \). Since \( \pi_1(T^2) = \bbZ^2 = \angles{a, b} \), classical solutions are in one-to-one correspondence with elements of \( \Hom(\bbZ^2, \U(1)) = T^2 \). In other words, the Wilson loops \( W_{a/b} = \exp\bargs{-\oint_{a/b} A} \in \U(1) \) define a point \( (W_a, W_b) \in \U(1) \times \U(1) = T^2 \).
+
+The CS action is invariant under orientation-preserving diffeomorphims \( \phi \) of \( S \) (that is, since integration is coordinate independent, \( \int \omega = \int \phi^\ast \omega \) so that \( S_{\rm CS}(A) = S_{\rm CS}(\phi^\ast A) \)).
+The Chern-Simons action is a boundary term that shows up when we integrate the second Chern form over a four-dimensional spacetime of the form \( M = [0, 1] \times S \).
+
+The CS action is invariant under small gauge transformations (those \( g \) for which there is a smooth one-parameter family of gauge transformations \( g_s \) with \( g_0 = 1 \) and \( g_1 = g \)), and is invariant up to \( 8\pi^2 N \) for some \( N \in \bbZ \) under large gauge transformations.
+This argument is easy to see for trivial bundles and \( \U(1) \) gauge fields \( A \). But let's do it more generally.
+I summarize my PHYS733 notes, now with the addition of the details from above.
+Strictly speaking, the CS form is only a locally-defined form. So as I said above, we should really think of the CS action on \( M^3 \) as being the action with the Chern form on \( W^4 \), where \( \partial W^4 = M^3 \). Then,
+\begin{equation}
+    S = \int_{W^4}\Tr(F \wedge F) = \int_{W^4} \dd \Tr(A \wedge \dd A + \frac{2}{3}A \wedge A \wedge A) = \int_{M^3} \Tr(A \wedge \dd A + \frac{2}{3}A \wedge A \wedge A).
+\end{equation}
+We already showed above that \( \Tr(F \wedge F) \) is trivially gauge invariant, we we know that our action is gauge invariant. Note that in order to define this, we needed to extend \( A \), which was originally over \( M^3 \), to all of \( W^4 \). Recall also above we showed that \( \int_{W^4} \Tr(F \wedge F) \) was the same for \textit{every} \( A \).
+Thus, we just need to consider what happens when we choose a different manifold \( W_2^4 \) with \( \partial W_2^4 = M^3 \).
+We consider gluing \( W_1^4 = W^4 \) to \( W_2^4 \) along their mutual boundary \( M^3 \); in doing so, we define \( W^4_{\rm closed} = W_1^4 \cup_{M^3} \bar W_2^4 \).
+Then we have from above there there exists some integer \( N \in \bbZ \) such that
+\begin{equation}
+    8\pi^2 N
+    %
+    = \int_{W^4_{\rm closed}} \Tr(F \wedge F) \\
+    %
+    = \int_{W_1^4} \Tr(F \wedge F) - \int_{W_2^4} \Tr(F \wedge F).
+\end{equation}
+
+In conclusion, we have seen that we can make sense of
+\begin{equation}
+    S_{\rm CS}(A) = \frac{k}{4\pi} \int_{M^3} \Tr(A \wedge \dd A + \frac{2}{3} A \wedge A \wedge A)
+\end{equation}
+by considering it as a boundary theory, and it makes sense
+as a physical theory whenever \( k \in \bbZ \) because \( \e^{\i S_{\rm CS}(A)} \) is independent of the choice of extending \( M^3 \) to \( W^4 \) (i.e.~\( \e^{\i S^{(W_1)}_{\rm CS}(A) - \i S^{(W_2)}_{\rm CS}(A)} = \e^{\i \frac{8\pi^2 N}{4\pi} k} = \e^{2\pi N k} = 1 \)).
+Gauge invariant quantities are, as we showed above, Wilson loops \( \Tr P \exp\bargs{-\oint A} \).
+
+% More heuristically (or perhaps this is totally fine?), if we consider a gauge transformation \( A \to g A g^{-1} + g \dd g^{-1} \), using properties of trace and 
+
+
+Finally, for bosonic vs spin CS theories, see \cref{sec:spin-structure}.
+
+
+Solving for the EOM for \( S_{\rm CS}(A) + S_{YM}(A) \) for \( G = \U(1) \) (i.e.~\( S_{\rm YM} = S_{\rm Maxwell} \)), one finds that the photon gets a mass for nonzero \( k \).
+But, since there are two derivatives in the Maxwell term and only one in the CS term, the CS theory dominates at low energies (long wavelengths).
+
+
+
+\subsection{1-form symmetry}
+\label{sec:1-form-symmetry-CS}
+
+Recall from \cref{sec:higher-form-symmetries} that if we have \( \dd \star J = 0 \) where \( J \) is a \( (q+1) \)-form, then we have a \( q \)-form symmetry \( U_\alpha(\Sigma) = \exp(\i \alpha Q_\Sigma) \) for charged operators \( Q_\Sigma = \int_\Sigma \star J \). Here \( \Sigma \) is a codimension \( (q+1) \) manifold.
+
+In the case of a Minkowski metric and \( 2 \)-form  \( J = \frac{1}{2}J_{\mu\nu}\dd  x^\mu \wedge \dd x^\nu \), \( \dd\star J = 0 \) becomes \( \partial^\mu J_{\mu\nu} = 0 \) and \( J_{\mu\nu} \) of course antisymmetric.
+The classical EOMs \( F = 0 \) imply that \( J_{\mu\nu} = \varepsilon^{\mu\nu\rho}A_\rho \) is conserved. This gives \( \star J = A_\mu \dd x^\mu = A \). Hence the unitary operator implementing the \( 1 \)-form symmetry is the Wilson loop.
+
+
+
+
+\subsection{Coupling to a current}
+
+Let's consider the \( G = \U(1) \) case (I think something analogous holds for non-Abelian \( G \) with the addition of various traces and such).
+Recall from my other notes that a vector field \( J^\mu \partial_\mu \) satisfies \( \nabla_\mu J^\mu = 0 \) if and only if the one form \( J = J_\mu \dd x^\mu \) satisfies \( \dd \star J = 0 \). (This is for the Levi-Civita connection \( \nabla_\nu \)). Given such a conserved current, we can perform a minimal coupling by adding the term \( A \wedge \star J \) to the action. This works because given a gauge transformation \( A \to A + \dd f \), we get \( A \wedge \star J \to A \wedge \star J + \dd(f \wedge \star J) - f \wedge (\dd \star J) \). Since the second term is a total derivative and the third term is zero since \( J \) is a conserved current, this gives a gauge invariant coupling,
+\begin{salign}
+    A \wedge \star J
+    %
+    &= A_\mu J_\nu \dd x^\mu \wedge \star \dd x^\nu \\
+    %
+    &= A_\mu J_\nu  \frac{\sqrt g}{2} g^{\nu\sigma_1 } \varepsilon_{\sigma_1 \sigma_2 \sigma_3}\dd x^\mu \wedge \dd x^{\sigma^2} \wedge \dd x^{\sigma_3} \\
+    %
+    &= A_\mu J^\nu  \frac{\sqrt g}{2} \varepsilon_{\nu \sigma_2 \sigma_3}\varepsilon^{\mu \sigma_2 \sigma_3} \dd x^1 \otimes \dd x^2 \otimes \dd x^3 \\
+    %
+    &= A_\mu J^\nu  \frac{\sqrt g}{2} \varepsilon_{\nu \sigma_2 \sigma_3}\varepsilon^{\mu \sigma_2 \sigma_3} \dd x^1 \otimes \dd x^2 \otimes \dd x^3 \\
+    %
+    &= A_\mu J^\nu  \sqrt g \delta^\mu_\nu \dd x^1 \otimes \dd x^2 \otimes \dd x^3 \\
+    %
+    &= A_\mu J^\mu \mathrm{vol} .
+\end{salign}
+
+
+
+
+
+\subsection{Quantizing Chern-Simons theory}
+
+I will work through canonical quantization of \( \U(1) \) CS theory on \( M = T^2 \times \bbR \).
+\note{to do: work through non-Abelian CS quantization from e.g.~\href{https://web.physics.ucsb.edu/\~davidgrabovsky/files-notes/CS\%20and\%20Knots.pdf}{here}}
+\note{Work out path integral quantization, see \href{https://arxiv.org/pdf/0810.0344}{here}}
+
+We begin with \( S = \frac{k}{4\pi} \int_M A \wedge \dd A = \frac{k}{4\pi}\int A_\mu \partial_\nu A_\lambda \varepsilon^{\mu\nu\lambda} \Dd{3}x \). We have that \( A_\mu \sim A_\mu + \partial_\mu f \) via a gauge transformation. So we can always choose a gauge where \( A_0 = 0 \). This yields \( S = \frac{k}{4\pi}\int A_\mu \dot A_\lambda \varepsilon^{\lambda \mu} \Dd3x = \frac{k}{4\pi}\int (A_y \dot A_x - A_x \dot A_y) \Dd3x \). The momenta conjugate to \( A_x, A_y \) are
+\begin{equation}
+    P_x = \frac{\partial \calL}{\partial \dot A_x} = \frac{k}{4\pi} A_y, \qquad P_y = \frac{\partial \calL}{\partial \dot A_y} = -\frac{k}{4\pi}A_x .
+\end{equation}
+We see however that this is overcounting variables, since \( A_y \) is conjugate to \( A_x \) and vice versa. We can make this more clear by integrating by parts, giving \( S = \frac{k}{4\pi}\int \parentheses{2 A_y \dot A_x - \frac{\partial}{\partial t}(A_x A_y)} \Dd3x \). Since it's a total derivative, we can ignore it, giving the action \( S = \frac{k}{2\pi} \int A_y \dot A_x \Dd3x \). Then we have a single coordiante \( x = A_x \) and its conjugate momentum \( p = k A_y / 2\pi \).
+The Poisson bracket is then \( \curlybrackets{x(\bm x), p(\bm y)} = \delta(\bm x - \bm y) \).
+We therefore promote the \( A \) to operators,
+\begin{equation}
+    \curlybrackets{A_x(\bm x), A_y(\bm y)} = \frac{2\pi}{k}\curlybrackets{x(\bm x), p(\bm y)} = \frac{2\pi}{k}\delta(\bm x - \bm y) \quad \Longrightarrow \quad \brackets{A_x(\bm x), A_y(\bm y)} = \frac{2\pi\i}{k} \delta(\bm x - \bm y).
+\end{equation}
+The Hamiltonian is \( p \dot x - L = 0 \).
+
+Note that a more correct approach is to consider canoncial quantization of the Dirac bracket rather than the Poisson bracket; see \cite[Ap.~A]{jacobson2024canonical-quant} for a nice short review. The upshot is, as we saw above, depending on whether or not we integrate by parts, we got a different Poisson bracket. If we however consider the Dirac bracket, then we would find that in either case, we get the same Dirac bracket, and so we can proceed with canoncial quantization either way to get the same results.
+
+Consider the Wilson loops around the two independent cycles of the torus. This gives us \( W_i = \e^{\theta_i} \) for \( i = 1,2 \), where \( \theta_i = -\oint_{\gamma_i} A_i \). Then, \( [\theta_1,\theta_2] = \oint_{\gamma_x}\oint_{\gamma_y} [A_x,A_y] = \frac{2\pi \i}{k} \). Hence \( W_x W_y = W_y W_x \e^{[\theta_x, \theta_y]} \). Thus we find that the Wilson loops obey the algebra \( W_x W_y = \e^{2\pi\i/k} W_y W_x \). The smallest nontrivial representation of this algebra has dimension \( k \), so this gives a \( k \)-fold degenerate ground state space. (The ground state space needs to form a representation of the Wilson algebra because the Wilson operators commute with the Hamiltonian, since \( H = 0 \)).
+
+
+
+\subsection{Braiding}
+
+\emph{Some of this is taken from \href{https://boulderschool.yale.edu/sites/default/files/files/boulder_1_-_Chetan_Nayak.pdf}{these notes}. Another nice reivew is \cite[Ap.~B]{ellison2022pauli-stabilize}.}
+
+We consider \( S = \frac{1}{4\pi} \int_M K_{IJ} A^I \wedge \dd A^J + \int_M A^I \wedge \star J_I \) for \( \U(1) \) gauge fields. To first order in \( a \),
+\begin{salign}
+    S[A + a] - S[A]
+    %
+    &= \frac{1}{4\pi} \int_M K_{IJ} \parentheses{ a^I \wedge \dd A^J + A^I \wedge \dd a^J } + \int_M a^I \wedge \star J_I \\
+    %
+    &= \frac{1}{4\pi} \int_M K_{IJ} \parentheses{ a^I \wedge \dd A^J- a^J \wedge \dd A^I } + \int_M a^I \wedge \star J_I ,
+\end{salign}
+where we integrated by parts. So the classical EOM is
+\begin{equation}
+    \frac{1}{4\pi} (K_{IJ} + K_{JI}) F^J + \star J_I = 0.
+\end{equation}
+Recall that we assumed that \( K \) is symmetric, and therefore,
+\begin{salign}
+    K_{IJ}F^J &= -2\pi \star J_I   \implies \\
+    %
+    &K_{IJ} \varepsilon^{\mu\nu\rho} F_{\mu\nu}^J = 4\pi (J_\rho)_J \\
+    %
+    &K_{IJ} \varepsilon^{\mu\nu\rho} \partial_\mu (A^\nu)^J = 2\pi (J_\rho)_J.
+\end{salign}
+We now try to extend the treatment of braiding two ``particle'' from \cite[Problem~7.3.1]{wen2007quantum-field-t} (see also \cite[Sec.~7.1.3.2]{pachos2012introduction-to}).
+Consider braiding two particles \( (J_t)_I = m_I \delta(\bm x - \bm x(t)) + n_I \delta(\bm x - \bm y(t)) \), where \( \bm x(t), \bm y(t) \) represents the braiding. And we have \( (J_i)_I = m_I \dot x_i \delta(\bm x - \bm x(t)) + n_I \dot y_i \delta(\bm x - \bm y(t))  \). We write \( (J_i)_I = (J_i^{(1)})_I + (J_i^{(2)})_I \).
+We then see that (by plugging in classical EOMs)
+\begin{salign}
+    S
+    %
+    &= \int_M \frac{-1}{2} A^I \wedge \star J_I + A^I \wedge \star J_I \\
+    %
+    &= \frac{1}{2} \int_M A^I \wedge \star J_I .
+\end{salign}
+So we now just need to plug in the \( A^I \) that solves \( K_{IJ} \varepsilon^{\mu\nu\rho} \partial_\mu (A^\nu)^J = 2\pi (J_\rho)_J \).
+Suppose that \( y = \dot y = 0 \), so that we just move \( \bm x \) around \( 0 \).
+Then the EOM is
+\begin{salign}
+    &K_{IJ} \varepsilon^{\mu\nu 0} \partial_\mu (A^\nu)^J = 2\pi \parentheses{m_I \delta(\bm x - \bm x(t)) + n_I \delta(\bm x)} \\
+    %
+    &K_{IJ} \varepsilon^{\mu\nu1} \partial_\mu (A^\nu)^J = 2\pi \parentheses{m_I \dot x_1 \delta(\bm x - \bm x(t)) } \\
+    %
+    &K_{IJ} \varepsilon^{\mu\nu2} \partial_\mu (A^\nu)^J = 2\pi \parentheses{m_I \dot x_2 \delta(\bm x - \bm x(t)) }.
+\end{salign}
+The claim is \note{figure out why this is true} we can just consider the cross term \( \frac{1}{2}\int (J_\mu^{(1)})_I (\tilde A^\mu)^I \) where \( \tilde A_\mu \) solves
+\begin{salign}
+    &K_{IJ} \varepsilon^{\mu\nu 0} \partial_\mu (\tilde A^\nu)^J = 2\pi n_I \delta(\bm x) \\
+    %
+    &K_{IJ} \varepsilon^{\mu\nu1} \partial_\mu (\tilde A^\nu)^J = 0\\
+    %
+    &K_{IJ} \varepsilon^{\mu\nu2} \partial_\mu (\tilde A^\nu)^J = 0.
+\end{salign}
+This is solved by \( \tilde A_t = \tilde A_y = 0, \tilde A_x = -2\pi K^{-1}\bm n H(y) \), where \( H(y) \) is the step function.
+Since \( \bm x(t) \) goes in a circle around 0, we can set \( \bm x_1 = \cos t \) and \( \bm x_2 = \sin t \).
+Thus we have
+\begin{salign}
+    \frac{1}{2}\int (J_\mu^{(1)})_I (\tilde A^\mu)^I
+    %
+    &= -\pi n^J (K^{-1})^{IJ} m_I \int  H(y) \dot x_1 \delta(\bm x - \bm x(t)) \\
+    %
+    &= \pi n^J (K^{-1})^{IJ} m_I \int  H(y) \sin t \delta(\bm x - \bm x(t)) \\
+    %
+    &= 2\pi n^J (K^{-1})^{IJ} m_I.
+\end{salign}
+Thus, we see that braiding yields a phase \( m_I (K^{-1})^{IJ} n_J \).
+\note{This was a bit of a sketchy derivation. Work this out more clearly.}
+
+The \( m \) and \( n \) label charges. \( m_I, n_I \) have to be integers so that the loops are gauge invariant \note{double check this}. We can define the lattice by vectors \( \bm e_I \), so that \( K_{IJ} = \bm e_I \cdot \bm e_J \) (where the dot product here is actually the Lorentzian dot product\footnote{For example, if \( K = \sigma^x \), then we can choose \( \bm e_1 = \ket +, \bm e_2 = \ket - \). Then we have that \( \bm e_1 \cdot \bm e_1 = \bra + \sigma^z \ket + = 0 = K_{11} \), \( \bm e_2 \cdot \bm e_2 = \bra - \sigma^z \ket - = 0 \), \( \bm e_1 \cdot \bm e_2 = \bra + \sigma^z \ket - = 1 = K_{12} \), and similarly for \( K_{21} \).}; a better way to think of all of this is that \( K \) is a symplectic Gram matrix \cite{conrad2022gottesman-kitae}). Similarly, \( (K^{-1})^{IJ} = \bm f^I \cdot \bm f^J \) with \( \bm e_I \cdot \bm f^J = \delta_I^J \). The lattice \( \Lambda \) is exactly the integer combinations of \( \bm e_I \) and this the dual lattice is the integral combinations of \( \bm f^I \).
+We can therefore identify \( \bm m \) with a dual lattice vector \( \bm u = m_I \bm f^I \), and similarly \( \bm v = n_I \bm f^I \) for \( \bm n \). Then, \( \bm u, \bm v \in \Lambda^\ast \) have braiding phase \( 2\pi \bm u \cdot \bm v \). If we shift \( \bm u \) by a \( \bm \lambda \in \Lambda \), then the phase changes by \( 2\pi \bm \lambda \cdot \bm v \in 2\pi \bbZ \); thus the phase doesn't change! We therefore see that distinct charges are labeled by elements \( \Lambda^\ast / \Lambda \).
+
+For Lorentzian lattices, \( \abs{\Lambda^\ast / \Lambda} = \abs{\det K} \) \cite[Eq.~33]{conrad2022gottesman-kitae}.
+Therefore for the toric code, we have \( 4 \) distinct anyons.
+
+Braiding \( m, n \) yields \( B(m, n) = \exp\bargs{2\pi \i m^T K^{-1} n} \). The topological spin of an anyon \( m \) is given by \( \theta(m) = \exp\bargs{\pi \i m^T K^{-1} m}\) (that is, the braiding of two \( m \) anyons is the same as exchanging the anyons twice in the above picture). A topolgical spin of \( 1 \) is then a boson and \( -1 \) a fermion. We can derive the following nice relationship:
+\begin{salign}
+    \frac{\theta(a+b)}{\theta(a)\theta(b)}
+    %
+    &= \exp\bargs{\pi\i (-\angles{a, K^{-1}a} - \angles{b, K^{-1}b}) + \angles{a+b, K^{-1}(a+b)}} \\
+    %
+    &= \exp\bargs{\pi\i (\angles{a, K^{-1}b} + \angles{b, K^{-1}a})} \\
+    %
+    &= \exp\bargs{2\pi\i \angles{a, K^{-1}b}} \\
+    %
+    &= B(a,b).
+\end{salign}
+This nice relationship is proven in the Pauli formalism in \cite[Ap.~A]{liang2023extracting-topo}.
+
+
+
+\subsection{Chern-Simons theory and lattices}
+
+We see from above that with a single \( \U(1) \) gauge field and \( k=2 \), the Wilson loops around the two cycles of the torus produce the Pauli algebra \( XZ = - ZX \).
+We can generalize the above to the following action with \( n+n \) gauge fields, \( S = \frac{1}{4\pi}\int_M K_{IJ}A^I \wedge \dd A^J \); i.e.~\( \U(1)^{n+n} \) CS theory.
+This gauge theory is defined by a lattice \( \Lambda \) with bilinear form \( K \).
+Notice that \( A'_I = U_{IJ}A^J \) for a matrix of constants \( U \) is a gauge field; consider a gauge transformation \( A^I \to A^I + \dd f^I \); then \( A'_I \to A'_I + \dd(U_{IJ}f^J) \).
+However, we had requirements that e.g.~\( \frac{1}{8\pi^2}\int_W F \wedge F \in \bbZ \). So we can't just willy-nilly change \( A \). Instead, we need \( U_{IJ} \in \bbZ \). Hence \( K \) and \( S K S^T \) define the same theory if \( S \in \operatorname{GL}(2n, \bbZ) \).
+
+\subsubsection*{Toric code}
+
+We choose the lattice \( \Lambda = \sqrt{2} \bbZ^{n+n} \) (\( \sqrt{d} \bbZ^{n+n} \) for qudits) and \( K = \begin{pmatrix}
+    0 & \bbI \\ \bbI & 0
+\end{pmatrix} \).
+Then the dual lattice is \( \Lambda^\ast = \frac{1}{\sqrt 2} \bbZ^{n+n} \) and \( \Lambda^P = \Lambda^\ast \).
+Let's consider \( n=1 \). Then call \( A = A^1 \) and \( B = A^2 \). The CS action is
+\begin{equation}
+    S = \frac{1}{4\pi} \int_M (A \dd B + B \dd A) = \frac{1}{2\pi} \int_M A \wedge \dd B.
+\end{equation}
+Charges correspond to elements of \( \Lambda^\ast / \Lambda = \bbZ^2 / 2 \bbZ^2 = \bbZ_2 \oplus \bbZ_2 \).
+The braiding is given by \( K^{-1} = K \). Define \( 1,e,m,f\in \Lambda^\ast/\Lambda \) by \( 1 = (0,0), e = (1,0)/\sqrt 2, m=(0,1) / \sqrt 2, f = e+m=(1,1)/\sqrt 2 \).
+The topological spin of \( a \) is \( \theta(a) = \e^{\pi \i a^T K a} \), giving \( \theta(1) = \theta(e) = \theta(m) = -\theta(f) = 1 \).
+The phase of braiding \( a\) around \( b \) is then \( \e^{2\pi\i a^T K b} \), which we can easily check equals \( \theta(a+b)/(\theta(a)\theta(b)) \).
+
+
+
+\subsubsection*{General discussion}
+
+Generalizing the discussion from above, we now follow the introduction of Ref.~\cite{kapustin2010topological-bou}.
+We consider Abelian CS theory.
+
+For an finite-rank free Abelian group \( \Gamma \), we denote the torus \( T_\Gamma = (\Gamma \otimes \bbR) / (2\pi\Gamma) \).
+Let's fix the lattice \( \Lambda \subset \bbR^n \).
+We then consider a gauge field as a connection on a principle \( T_\Lambda \)-bundle over an oriented \( 3 \)-manifold \( M \); locally, we write \( A = A_\mu \dd x^\mu \) taking values in the vector space \( \mathfrak t_\Lambda = \Lambda\otimes \bbR \), which is the Lie algebra of \( T_\Lambda \)\footnote{For example, consider \( \Lambda = \angles{(1, 0), (0, 2)} \subset \bbR^2 \). Then \( \Lambda \otimes \bbR \cong \bbR^2 \), and \( T_\Lambda \cong \set{(\theta,\phi) \mid \theta\in \bbR / 2\pi\bbZ, \phi\in \bbR / 4\pi\bbZ} \). The Lie algebra is then \( \mathfrak t_\Lambda \cong \bbR^2 \).}.
+The action is
+\begin{equation}
+    S = \frac{1}{4\pi} \int_{M} K(A, \dd A),
+\end{equation}
+where \( K \) is a symmetric\footnote{We do this wlog. I think the reason is because for abelian gauge fields, \( A \wedge \dd B = \dd B \wedge A \). Hence, any non symmetric term can be made symmetric by adding a total derivative; \( A \wedge \dd B \to A \wedge \dd B - \frac{1}{2}\dd(A \wedge B) = \frac{1}{2}(A \wedge \dd B + B \wedge \dd A) \). Not totally sure about this though. \note{See below in my discussion of gapped edge theories. I think when we consider \( \U(1)^{n+m} \) for \( n \neq m \) and \( K \) not symmetric, we get chiral theories on the boundary where the number of left and right moving modes is not equal.}} bilinear form on \( \mathfrak t_\Lambda \). In order for \( \e^{-S} \) to be well-defined (independent of trivialization of the \( T_\Lambda \)-bundle), \( K \) must be integer valued and even on \( \Lambda \), \( K(\lambda,\lambda')\in \bbZ \) and \( K(\lambda,\lambda) \in 2 \bbZ \) for \( \lambda,\lambda'\in\Lambda \). (If we endow \( M \) with a spin structure, then we can still make sense of odd \( K \), but let's ignore that for now).
+
+\( \Lambda \) equipped with the integer-valued symmetric bilinear form \( K \) is a lattice of rank \( n \). Since we enforce that \( K \) be even, the lattice is even. Thus, classical bosonic (i.e.~non-spin) Abelian CS theories are labeled by even lattices.
+
+Denote the Pontryagin dual of \( \Lambda \) by \( \Lambda^P = \Hom(\Lambda, \bbZ) \). Given \( K \), we define the dual lattice \( \Lambda^\ast \). Clearly, \( \Lambda^\ast \cong \Lambda^P \). For an \( X \in \Lambda^P \), we extend it to all of \( \Lambda\otimes \bbR \) in the obvious way. We can then consider the Wilson loop \( W_X(\gamma) = \exp\bargs{-\oint_\gamma X(A)} \).
+\( X \) needs to take integer values on \( \Lambda \) so that the Wilson loop is gauge invariant. Indeed the point is that (large) gauge transformations can shift the charge of Wilson loop by \( \Lambda \), so distinct charges are labeled by \( \Lambda^\ast / \Lambda \). We can see this a little bit better as follows.
+Consider \( \exp\bargs{-\oint \alpha_I A^I} \), and then consider a large gauge transformation. The result is that (note I'm being a little careless as to when the gauge field has an \( \i \) in it and when it doesn't) \( \exp\bargs{-\oint \alpha_I A^I + 2\pi \i \oint \alpha_I v^I} \) where \( v^I \) is a vector in \( \Lambda \). Hence, in order for it to be gauge invariant, we need that \( \alpha_J = c^J K_{IJ} \) where \( c \in \Lambda^\ast \); that way, \( c^T K v \in \bbZ \).
+So we see that Wilson loops must be labeled by elements of \( \Lambda^\ast \), giving \( W_{c\in\Lambda^\ast}(\gamma) = \exp\bargs{-\oint_\gamma c^I K_{IJ}A^J} \).
+
+Next, we show that \( W_v(\gamma) \) for \( v \in \Lambda \subset \Lambda^\ast \) commutes with everything, which implies that distinct anyons are labeled by \( \Lambda^\ast / \Lambda \).
+Recall our quantization \( \brackets{A_x(\bm x), A_y(\bm y)} = \frac{2\pi\i}{k}\delta(\bm x - \bm y) \) in the case of the \( K \) matrix being \( 1\times 1 \). This gets replaced by
+\( \brackets{A^I_x(\bm x), A^J_y(\bm y)} = 2\pi\i (K^{-1})^{IJ} \delta(\bm x - \bm y) \).
+Fix a \( c \in \Lambda^\ast \). Then,
+\begin{salign}
+    W_v(\gamma) W_c(\lambda)
+    %
+    &= \exp\bargs{-\oint_\gamma v^I K_{IJ} A^J} \exp\bargs{-\oint_\lambda c^I K_{IJ} A^J} \\
+    %
+    &= \exp\bargs{\brackets{\oint_\lambda c^I K_{IJ} A^J, \oint_\gamma v^I K_{IJ} A^J}} \exp\bargs{-\oint_\lambda c^I K_{IJ} A^J}\exp\bargs{-\oint_\gamma v^I K_{IJ} A^J} \\
+    %
+    &= \exp\bargs{\oint_\lambda\oint_\gamma v^{I'} K_{I'J'}  c^I K_{IJ} \brackets{A^J,  A^{J'}}}  W_c(\lambda)W_v(\gamma) \\
+    %
+    &= \exp\bargs{2\pi\i v^{I'} K_{I'J'}  c^I K_{IJ} (K^{-1})^{JJ'}}  W_c(\lambda)W_v(\gamma) \\
+    %
+    &= \exp\bargs{2\pi\i v^{I'} K_{I'J'}  c^{J'}}  W_c(\lambda)W_v(\gamma) .
+\end{salign}
+Since \( c \in \Lambda^\ast \) and \( v \in \Lambda \), we see that the phase is \( 1 \).
+
+
+
+In the toric code case, we have that
+\begin{salign}
+    W_m(x)W_e(y) &= \exp\bargs{-\frac{1}{\sqrt 2} \oint_x A^1_x}\exp\bargs{-\frac{1}{\sqrt 2} \oint_y A^2_y} \\
+    %
+    &= \exp\bargs{\brackets{\frac{1}{\sqrt 2} \oint_y A^2_y, \frac{1}{\sqrt 2} \oint_x A^1_x}} \exp\bargs{-\frac{1}{\sqrt 2} \oint_y A^2_y}\exp\bargs{-\frac{1}{\sqrt 2} \oint_x A^1_x} \\
+    %
+    &= \exp\bargs{\pi \i}W_e(y)W_m(x)
+\end{salign}
+and of course \( W_f(x) = W_e(x) W_m(x) \) and similarly for \( y \).
+We can realize this algebra by
+\begin{salign}
+    &W_e(x) = X\otimes \bbI  &  W_e(y) = \bbI \otimes Z \\
+    &W_m(x) = \bbI \otimes X  &  W_m(y) = Z\otimes \bbI .
+\end{salign}
+These of course are the logical operators of the toric code.
+
+
+\note{How exactly does anyon condensation work in this language?}
+
+% Consider condensing anyon \( e \). This corresponds to setting \( W_e(x) = W_e(y) = 1 \). After condensing, we then see that \( e\sim 1 \) and \( m \sim f \). We can do a similar thing for \( m \). However, if we wanted to condense \( f \), that wuld correspond to setting \( X\otimes X  \) and \( Z \otimes Z \) to \( \bbI \otimes \bbI \). So we cannot condense \( f \) (unless we just condense both \( e \) and \( f \)). This is due to \( f \) being a fermion.
+
+\subsubsection*{Anyons as objects charged under 1-form symmetry}
+
+Now we want to show that the distinct anyons exactly label the charges under the 1-form symmetry. We'll do this by examining an example. Consider again the toric code example
+\( \Lambda = \sqrt{2} \bbZ^{2} \) (\( \sqrt{d} \bbZ^{2} \) for qudits) and \( K = \begin{pmatrix}
+    0 & 1 \\ 1 & 0
+\end{pmatrix} \).
+Then the dual lattice is \( \Lambda^\ast = \frac{1}{\sqrt 2} \bbZ^{2} \) and \( \Lambda^P \cong \Lambda^\ast \).
+We can therefore associate \( c = (c_1, c_2) \in \Lambda^\ast \) with \( \Lambda^P \ni X \colon (a_1, a_2) \mapsto c^T K a = c_1a_2 + c_2a_1 \). The Wilson line is then \( W_c(\gamma) \equiv W_{X_c}(\gamma) = \exp\bargs{-c^I K_{IJ} \oint_\gamma A^J} \).
+The charge of the Wilson loops under the 1-form symmetry is the \( q \) satisfying
+\( \e^{\i \int \star J}W_c(\gamma) \e^{-\i \int \star J} = \e^{2\pi \i q} W_c(\gamma) \), where recall that \( \star J \propto A \).
+So in other words, we can get the charge of \( W_c(\gamma) \) under the \( 1 \)-form symmetry operator \( W_{c'}(\lambda) \) by finding \( q = q(c,\gamma; c',\lambda) \) such that \( W_{c'}(\lambda)W_c(\gamma)W_{c'}(\lambda)^{-1} = \e^{2\pi\i q}W_c(\gamma) \).
+For example,
+\( q(e,x; m,y) = 1/2 \).
+
+\note{Anything else to say here? Is this all right?}
+
+\ignore{
+    Then,
+    \begin{salign}
+        \e^{\oint_\lambda A^1 + A^2} &\exp\bargs{-\oint_\gamma C^I K_{IJ}A^J} \e^{- \oint_\lambda A^1 + A^2} \\
+        %
+        &= \exp\bargs{-\oint_\gamma C^I K_{IJ}A^J} \exp\bargs{-\brackets{ \oint_\lambda \dd\bm x (A^1(\bm x) + A^2(\bm x)), -\oint_\gamma \dd\bm y (c^I K_{IJ} A^J(\bm y)}} \\
+        %
+        \implies q &= \frac{1}{2\pi\i} \brackets{ \oint_\lambda \dd\bm x (A^1(\bm x) + A^2(\bm x)), \oint_\gamma \dd\bm y c^I K_{IJ} A^J(\bm y)}.
+    \end{salign}
+    Suppose that \( \lambda \) is the \( x \) cycle and \( \gamma \) is the \( y \) cycle. Then this becomes
+    \begin{equation}
+        %
+        q = \frac{1}{2\pi\i}\brackets{ \oint_x \dd\bm x (A^1_x(\bm x) + A^2_x(\bm x)), \oint_y \dd\bm y c^I K_{IJ} A^J_y(\bm y)}.
+    \end{equation}
+    Recall our quantization \( \brackets{A_x(\bm x), A_y(\bm y)} = \frac{2\pi\i}{k}\delta(\bm x - \bm y) \) in the case of the \( K \) matrix being \( 1\times 1 \). This gets replaced by
+    \( \brackets{A^I_x(\bm x), A^J_y(\bm y)} = 2\pi\i (K^{-1})^{IJ} \delta(\bm x - \bm y) \). Hence, we find
+    \begin{salign}
+        q
+        %
+        &= \frac{1}{2\pi\i} c^I K_{IJ} \oint_x \dd\bm x \oint_y \dd\bm y  \brackets{  (A^1_x(\bm x) + A^2_x(\bm x)),  A^J_y(\bm y)} \\
+        %
+        &= c^I K_{IJ} ((K^{-1})^{1J} + (K^{-1})^{2J})\\
+        %
+        &= c^1 + c^2.
+    \end{salign}
+    In the toric code case, we therefore have that \( q=0 \) for \( c = 1 =(0,0) \), \( q= 1/\sqrt2 \) for \( c=e=(1,0)/\sqrt2 \) and \( c=m=(0,1)/\sqrt2 \), and \( q = \sqrt2 \) for \( c=f=(1,1)/\sqrt2 \).
+}
+
+
+
+\ignore{
+
+    Let's go back to the toric code example in this language. Choosing \( \Lambda = \bbZ^2 \) and \( K = \operatorname{diag}(2, -2) \), we get \( \Lambda^P \cong \bbZ^2 \) and \( \Lambda^\ast \cong (\bbZ/2)^2 = \set{(a/2,b/2) \mid a,b \in \bbZ} \). We therefore associate \( c = (c_1, c_2) \in \Lambda^\ast \) with \( (X_c\colon (a, b) \mapsto 2c_1 a + 2c_2 b) \in \Lambda^P \).
+    The Wilson lines then become \( W_{X_c}(\gamma) = \exp\bargs{-2c^I \oint_\gamma A^I} \).
+    As we showed in the toric code example above, such a Wilson line has charge \( 2c/2 = c \).
+    Hence, the charges take values in \( \Lambda^\ast \).
+    This gives us that \( W_{X_c} \) are independent operators for \( c \in \bbZ_2\times \bbZ_2 = \Lambda^\ast / \Lambda \). For \( c' = c + \lambda \) for some \( c \in \bbZ_2\times\bbZ_2 \) and \( \lambda\in\Lambda \), we then get that \( W_{X_{c'}} \) can be written as a product of the other ones. So independent charges are labeled by \( \Lambda^\ast / \Lambda \). \note{I don't really understand this.}
+
+    \note{Understand braiding relations; eq 2.6 and 2.7 of \url{https://arxiv.org/pdf/1805.02738.pdf}, 5.3 and 5.4 of \url{https://arxiv.org/pdf/2308.01579.pdf}}
+}
+
+
+
+
+
+\ignore{
+Let's restrict to \( n=1 \) and consider \( \Lambda = \bbZ^2 \) with \( K = \operatorname{diag}(2, -2) \) so that \( \Lambda \) is even. Then \( \Lambda^\ast = \set*{(n/2, m/2) \mid n, m \in \bbZ} \), so that \( H \coloneqq \Lambda^\ast / \Lambda = \bbZ_2 \oplus \bbZ_2 \). We see that for any curve \( \lambda \), we have a Wilson loop \( W(c, \gamma) = \exp(-c^I \oint_\gamma A^I) \). The charge of the Wilson loops under the 1-form symmetry is the \( q \) satisfying \( \e^{\i \int \star J}W(c, \gamma) \e^{-\i \int \star J} = \e^{2\pi \i q} W(c, \gamma) \). In other words, \( W((1,1), \lambda) W(c, \gamma) W((1,1), \lambda)^\dag = \e^{2\pi \i q} W(c, \gamma) \). Consider \( \lambda \) being the \( x \) cycle. Then by the commutation relations, we have that \( q = c_y/2 \)\footnote{That is, \( W_x W_y^{c_y} = \e^{2\pi\i c_y/k} W_y^{c_y} W_x \), where \( k = 2 \) by our choice of \( K \).}. Similarly for the \( y \) cycle. Hence, we see that \( c/2 \in \Lambda^\ast / \Lambda \) are the charges; i.e.~the \( c \) need to be integers, and \( W_x^2 = 1 \) (see below for a better description of this).
+
+}
+
+
+\subsubsection*{Chiral central charge and Gauss sum}
+
+Given \( \theta(a) = \e^{\pi \i a^T K^{-1} a} \), it can be proven \cite[Ap.~4]{milnor1973symmetric-bilin} that
+\begin{equation}
+    \sum_{a\in A} \theta(a) = \sqrt{\abs{A}} \e^{\pi \i c / 4},
+\end{equation}
+where \( c = \text{sgn}(K) \) is the signature of \( K \) (the number of positive eigenvalues minus the number of negative eigenvalues).
+We will see later when we study CS in the precense of the boundary that we get chiral modes on the boundary. Generalizing that discussion to the \( K \) matrix case, we get left and right moving modes on the boundar depending on the signature of \( K \). Hence, the total current is the number of left movers minus the number of right movers, which is exactly the chiral central charge \( c \).
+
+For example, the toric code given by \( K = \begin{pmatrix}
+    0 & 2 \\2&0
+\end{pmatrix} \) is not chiral, \( c=0 \).
+
+
+
+
+\subsection{Boundary wavefunctions}
+
+Let's consider a simple manifold with boundary, where the boundary is just a straight line at \( y=0 \).
+The variation of the CS action gives
+\begin{equation}
+    \delta S_{\rm CS} = \frac{k}{4\pi} \int \Dd3 x~\varepsilon^{\mu\nu\rho} (\delta A_\mu F_{\nu\rho} + \partial_\mu (A_\nu \delta A_\rho)).
+\end{equation}
+Before we could just discard the second term, but now we cannot.
+If everything is to work out as before to give the EOM \( F_{\mu\nu}= 0 \), we need to set the last term to zero at the boundary.
+The last term becomes \( \frac{k}{4\pi} \int \dd t \dd x~\varepsilon^{2\nu\rho} A_\nu(t, x, 0)\delta A_\rho(t, x, 0) = \frac{k}{4\pi} \int \dd t \dd x~(A_t(t, x, 0)\delta A_x(t, x, 0) - A_x(t, x, 0)\delta A_t(t, x, 0)) \). If we fix a gauge \( (A_t - v A_x)\rvert_{y=0} = 0 \) for some \( v \) inserted by hand, then we assert that variations satisfy \( \delta A_t = v \delta A_x \) at the boundary, so that this term vanishes.
+
+So we have, by hand, picked a gauge (CS theory knows nothing about \( v \)). We might as well extend the gauge throughout the bulk.
+Notice that \( A_\mu \dd x^\mu = A'_\mu \dd x^{'\mu} \) if
+\begin{salign}
+    &t' = t, \quad x' = x + vt, \quad y' = y \\
+    %
+    &A'_{t'} = A_t - v A_x, \quad A'_{x'} = A_x, \quad A'_{y'} = A_y.
+\end{salign}
+So we can consider the action \( \int A' \wedge \dd A' \) instead.
+Since the theory is quadratic, we can plug classical EOMs back into the action \note{understand this better}. Our choice of gauge is just \( A'_{t'} = 0 \). \( \frac{\delta S}{\delta A'_{t'}} = 0 \) yields \( F'_{x'y'} = 0 \). We can solve this with \( A'_{i'} = \partial_{i'} \phi \). Plugging this back into the action yields
+\begin{salign}
+    S
+    %
+    &= \frac{k}{4\pi}\int \Dd3x'~ (A'_{t'}F'_{x'y'} + A'_{x'}F'_{y't'} + A'_{y'}F'_{t'x'}) \\
+    %
+    &= \frac{k}{4\pi}\int \Dd3x'~ (A'_{x'} (-\partial_{t'}A_{y'}) + A'_{y'} (\partial_{t'} A'_{x'})) \\
+    %
+    &= \frac{k}{4\pi}\int \Dd3x'~ (\partial_{y'}\phi \partial_{t'} \partial_{x'} \phi - \partial_{x'}\phi \partial_{t'}\partial_{y'}\phi) \\
+    %
+    &= \frac{k}{4\pi}\int \Dd3x'~ \parentheses{ \partial_{y'}(\phi \partial_{t'}\partial_{x'}\phi) - \partial_{x'}(\phi \partial_{y'}\partial_{t'}\phi) } \\
+    %
+    &= \frac{k}{4\pi}\int_{y=0} \dd x' \dd t' ~  \phi \partial_{t'}\partial_{x'}\phi  \\
+    %
+    &= \frac{k}{4\pi}\int_{y=0} \dd x' \dd t' ~ (-\partial_{t'} \phi \partial_{x'}\phi + \partial_{t'}(\phi \partial_{x'}\phi) )  \\
+    %
+    &= -\frac{k}{4\pi}\int_{y=0} \dd x' \dd t' ~ \partial_{t'} \phi \partial_{x'}\phi  \qquad \text{since only boundary is } y= 0
+    %
+    % &= -\frac{k}{4\pi}\int_{y=0} \dd x \dd t ~ (\partial_{t}- v \partial_x) \phi \partial_{x}\phi .
+\end{salign}
+For a tangent vector \( \dot\gamma(t) = (\dot x, \dot y) \), we have \( \frac{\dd}{\dd t} = \dot x \frac{\partial}{\partial x} + \dot y \frac{\partial}{\partial y} = \dot x' \frac{\partial}{\partial x'} + \dot y' \frac{\partial}{\partial y'}  = (\dot x \frac{\partial x'}{\partial x} + \dot y \frac{\partial x'}{\partial y}) \frac{\partial}{\partial x'} + (\dot x \frac{\partial y'}{\partial x} + \dot y \frac{\partial y'}{\partial y})  \frac{\partial}{\partial y'}  \). Hence \( \frac{\partial}{\partial x} = \frac{\partial x'}{\partial x}\frac{\partial}{\partial x'} + \frac{\partial y'}{\partial x}\frac{\partial}{\partial y'} \) and similarly for \( \frac{\partial }{\partial y} \).
+In the present case, this means that
+\begin{salign}
+    &\frac{\partial}{\partial x} = \frac{\partial x'}{\partial x}\frac{\partial}{\partial x'} + \frac{\partial t'}{\partial x}\frac{\partial}{\partial t'} = \frac{\partial}{\partial x'} \\
+    %
+    &\frac{\partial}{\partial t} = \frac{\partial x'}{\partial t}\frac{\partial}{\partial x'} + \frac{\partial t'}{\partial t}\frac{\partial}{\partial t'} = v\frac{\partial}{\partial x'} + \frac{\partial}{\partial t'}.
+\end{salign}
+Hence, we get
+\begin{equation}
+    S  = -\frac{k}{4\pi}\int_{y=0} \dd x \dd t ~ (\partial_{t}- v \partial_x) \phi \partial_{x}\phi .
+\end{equation}
+Let's define a new efield \( \rho = \frac{1}{2\pi} \partial_x \phi \), so that
+\begin{equation}
+    S  = -\frac{k}{4\pi}\int_{y=0} \dd x \dd t ~ (\partial_{t}- v \partial_x) \phi \partial_{x}\phi .
+\end{equation}
+
+Let's consider a periodic \( x \) coordinate, \( S^1 \). Let the circumference of the circle be \( 2\pi R \).
+Since the modes live on the circle, we can Fourier expand as
+\begin{equation}
+    \phi(t, x) = \frac{1}{\sqrt{2\pi R}} \sum_{n\in \bbZ} \phi_n(t) \e^{\i n x / R}.
+\end{equation}
+The fact that \( \phi \) is real means that \( \bar\phi_n = \phi_{-n} \). We get that
+\begin{salign}
+    S
+    %
+    &= -\frac{k}{4\pi}\sum_{n,m \in \bbZ}\int_{S^1\times \bbR} \dd x \dd t ~ (\partial_{t}- v \partial_x) ( \phi_n \e^{\i n x / R} )\partial_x ( \phi_m \e^{\i m x / R} ) \\
+    %
+    &= -\frac{k}{4\pi(2\pi R)}\sum_{n,m \in \bbZ}\int_{S^1\times \bbR} \dd x \dd t ~ \e^{\i (n+m) x / R} (\dot\phi_n - \frac{\i v n}{R} \phi_n) \frac{\i m}{R}\phi_m \\
+    %
+    &= -\frac{k}{4\pi}\sum_{n,m \in \bbZ}\int_{\bbR} \dd t ~ \delta_{n+m,0} (\dot\phi_n - \frac{\i v n}{R} \phi_n) \frac{\i m}{R}\phi_m \\
+    %
+    &= \frac{k}{4\pi}\sum_{n \in \bbZ}\int_{\bbR} \dd t ~
+    \parentheses{\frac{\i n}{R} \dot\phi_n \phi_{-n} - v\parentheses{\frac{\i n}{R}}^2 \phi_n \phi_{-n}} \\
+    %
+    &= \frac{k}{4\pi}\sum_{n=0}^\infty \int_\bbR \dd t ~
+    \parentheses{\frac{\i n}{R} \dot\phi_n \phi_{-n} - \frac{\i n}{R} \dot\phi_{-n} \phi_{n} + \frac{2v n^2}{R^2} \phi_n \phi_{-n}} \\
+    %
+    &= \frac{k}{4\pi}\sum_{n=0}^\infty \int_\bbR \dd t ~
+    \parentheses{\frac{\i n}{R} \parentheses{
+            2\dot\phi_n \phi_{-n} - \frac{\dd}{\dd t}(\phi_n \phi_{-n})
+        } + \frac{2v n^2}{R^2} \phi_n \phi_{-n}} \\
+    %
+    &= \frac{k}{2\pi}\sum_{n=0}^\infty \int_\bbR \dd t ~
+    \parentheses{\frac{\i n}{R} \dot\phi_n \phi_{-n} + \frac{v n^2}{R^2} \phi_n \phi_{-n}} \\
+\end{salign}
+So the momentum \( \Pi_n \) conjugate to \( \phi_n \) is \(\frac{\i n k}{2\pi R} \phi_{-n} \). Therefore, when we canonically quantize, we get
+\begin{equation}
+    \brackets{\phi_n, \phi_{n'}} = \frac{2\pi R}{n k}\delta_{n+n', 0} .
+\end{equation}
+Define \( \rho = \frac{1}{2\pi} \partial_x \phi \). Then \( \rho_n = \frac{\i n}{2\pi R} \phi_n \), so that
+\begin{equation}
+    [\rho_n, \rho_{n'}] = \frac{n}{2\pi R k} \delta_{n+n', 0}, \qquad
+    %
+    [\rho_n, \sigma_{n'}] = \frac{\i}{k}\delta_{n+n',0},
+\end{equation}
+where the first is the Kac-Moody algebra.
+Integrating these commutation relations yields
+\begin{salign}
+    &\brackets{\phi(t, x), \phi(t, x')} = \frac{\pi \i }{k} \operatorname{sgn}(x-x'), \\
+    %
+    &\brackets{\rho(t, x), \phi(t, x')} = \frac{\i}{k}\delta(x-x'), \\
+    %
+    &\brackets{\rho(t, x), \rho(t, x')} = -\frac{\i}{2\pi k} \partial_x \delta(x-x').
+\end{salign}
+
+The Hamiltonian becomes
+\begin{salign}
+    H
+    %
+    &= \sum_{n=0}^\infty \brackets{ \Pi_n \dot \phi_n -
+        \frac{k}{2\pi}\parentheses{\frac{\i n}{R} \dot\phi_n \phi_{-n} + \frac{v n^2}{R^2} \phi_n \phi_{-n}} }\\
+    %
+    &= \frac{k v}{2\pi} \sum_{n=0}^\infty \frac{n^2}{R^2} \phi_n \phi_{-n} \\
+    %
+    &= 2\pi k v \sum_{n=0}^\infty \rho_n \rho_{-n} .
+\end{salign}
+Thus our final Hamiltonian is just a bunch of harmonic oscillators (recall that we said \( \bar\rho_n = \rho_{-n} \), so that as operators \( \rho_n^\dag = \rho_{-n} \)). The ground state \( \ket 0 \) is defined by \( \rho_{-n}\ket 0 = 0 \) for all \( n > 0 \).
+
+Given this Hamiltonian, we see that \( \rho \) has the interpretation of charge density. The time evolution is \( \dot\rho_n = \i [H, \rho_n] = \i v (n/R)\rho_n \), so that
+\begin{equation}
+    \rho(t, x) = \frac{1}{\sqrt{2\pi R}}\sum_{n\in \bbZ} \rho_n \e^{\i (x + v t) n / R} = \frac{1}{\sqrt{2\pi R}}\sum_{n > 0} (\rho_{-n} \e^{-\i (x + v t) n / R} + \rho_{-n}^\dag \e^{\i (x + v t) n / R}),
+\end{equation}
+and so \( \rho \) is a chiral field.
+Similarly, we have \( \dot\phi_n = \i [H, \phi_n] = \frac{n v \i}{R} \phi_n \), so that \( \phi_n(t) = \e^{\i v n t / R}\phi_n \).
+
+We then claim that the operator describing an electron in the boundary is \( \Psi = : \e^{\i k \phi } :\), where the normal ordering places \( \phi_{-n} \) with \( n>0 \) to the right. The reason for this is that
+\begin{equation}
+    [\rho(t, x), \Psi^\dag(t, x')]
+    %
+    =  \delta(x-x')\Psi^\dag(t, x').
+\end{equation}
+\note{What is the normal ordering doing? I think maybe it's ensuring that \( \Psi^\dag \ket 0 \) is well-defined?}
+\ignore{
+    Let's show this now.
+    \begin{salign}
+        [\rho, \phi^+]
+        %
+        &= [\rho^-, \phi^+] \\
+        %
+        &= \frac{1}{\sqrt{2\pi R}}\sum_{n > 0}  \e^{-\i (x + v t) n / R} \brackets{\rho_{-n}, \phi^+} \\
+        %
+        &= \frac{1}{\sqrt{2\pi R}}\sum_{n > 0}  \e^{-\i (x - x') n / R} \brackets{\rho_{-n}, \phi_n} \\
+        %
+        &= \frac{\i}{\sqrt{2\pi R k}}\sum_{n > 0}  \e^{-\i (x - x') n / R} \\
+        %
+        &= \frac{\i}{\sqrt{\pi R k}} \delta(x-x').
+    \end{salign}
+    Hence, with \( f(\sigma) = \e^{\i k \sigma \phi^+} \rho \e^{-\i k \sigma \phi^+}  \), we have \( f'(\sigma) = \i k \e^{\i k \sigma \phi^+}  [\phi^+, \rho] \e^{-\i k \sigma \phi^+} = \sqrt{k/\pi R} \delta(x-x')  \). Thus, \( f(1) = f(0) + f'(0) = \rho + \sqrt{k/\pi R} \delta(x-x') \). It follows that
+    \begin{salign}
+        [\rho, \e^{\i k \phi^+}]
+        %
+        &= (\rho - f(1))\e^{\i k \phi^+}  \\
+        %
+        &= -\sqrt{k/\pi R} \delta(x-x') \e^{\i k \phi^+} .
+    \end{salign}
+    We can do the analogous thing for \(\phi^-\). So we have that
+    \begin{salign}
+        [\rho(t, x), \Psi^\dag(t, x')]
+        %
+        &=  [\rho(t, x), \e^{\i k \phi^+} \e^{\i k \phi^-}] \\
+        %
+        &=  \rho \e^{\i k \phi^+} \e^{\i k \phi^-} - \e^{\i k \phi^+} \e^{\i k \phi^-} \rho \\
+        %
+        &=  [\rho, \e^{\i k \phi^+}] \e^{\i k \phi^-} + \e^{\i k \phi^+} \rho \e^{\i k \phi^-} - \e^{\i k \phi^+} [\e^{\i k \phi^-}, \rho] - \e^{\i k \phi^+} \rho \e^{\i k \phi^-} \\
+        %
+        &=  [\rho, \e^{\i k \phi^+}] \e^{\i k \phi^-} - \e^{\i k \phi^+} [\e^{\i k \phi^-}, \rho] \\
+        %
+        &=  -\sqrt{k/\pi R} \delta(x-x') \e^{\i k \phi^+} \e^{\i k \phi^-} - \e^{\i k \phi^+} \sqrt{k/\pi R} \delta(x-x') \e^{\i k \phi^-} \\
+        %
+        &=  -2\sqrt{k/\pi R} \delta(x-x') \Psi
+    \end{salign}
+    \note{I made some mistakes here, but I think this is the rough idea. Also, I think we're assuming the zero mode \( \phi_0  = 0\), but I'm not sure.}
+
+    Notice that if \( f(\sigma) = \e^{\i k \phi} \rho \e^{-\i k \phi} \), then \( f'(\sigma) = \i k \e^{\i k \phi} [\phi, \rho] \e^{-\i k \phi} =  \delta(x-x') \), so that
+    \begin{equation}
+        \brackets{\rho, \e^{\i k \phi}}
+        %
+        &= (\rho - f(1))\e^{\i k \phi}
+    \end{equation}
+}
+
+
+Now we consider CS theory on \( \bbR \times S^2 \) at a fixed time. In any quantum system, the kind of object tht sits at a fixed time is a wavefunction. We will see how the wavefunction of CS theory is related to the boundary CFT.
+
+In the \( a_0=0 \) gauge, we had that \( [a_i(\bm x), a_j(\bm y)] = \frac{2\pi \i}{k} \varepsilon_{ij} \delta^2(\bm x - \bm y) \).
+Let's define \( z = \theta + \i \varphi \), where \( \theta,\varphi \) are the coordinates of \( S^2 \).
+Then
+\begin{align}
+    [a_z(z, \bar z), a_{\bar z}(w, \bar w)]
+    %
+     & = [a_\theta + \i a_\varphi, a_\theta - \i a_\varphi] \\
+    %
+     & = -2\i[a_\theta, a_\varphi]                          \\
+    %
+     & = -2\i \frac{2\pi \i}{k}\delta^2(\bm z - \bm w)      \\
+    %
+     & =  \frac{4\pi}{k}\delta^2(\bm z - \bm w).
+\end{align}
+We're going to choose \( a_{\bar z} \) as ``position'' and \( P = -\frac{k \i}{4\pi} a_z \) as ``momentum'' in order to yield the right commutation relations (this choice is called \emph{holomorphic quantization}).
+So we will describe the state of the theory by a wavefunction \( \Psi(a_{\bar z}(z, \bar z)) \).
+The EOM is as usual \( f_{z\bar z} = 0 \). So we impose this constraint as an operator equation on \( \Psi \). Namely, we have that \( f_{z\bar z} = \partial_z a_{\bar z} - \partial_{\bar z} a_z = \partial_z a_{\bar z} - \frac{4\pi \i}{k}\partial_{\bar z} P \). Of course, we make \( P = -\i \frac{\delta}{\delta a_{\bar z}} \). So we have
+\begin{equation}
+    \parentheses{ \frac{4\pi}{k}\partial_{\bar z} \frac{\delta}{\delta a_{\bar z}} )\Psi(a_{\bar z} - \partial_z a_{\bar z}} = 0,
+\end{equation}
+or
+\begin{equation}
+    \parentheses{ \partial_{\bar z} \frac{\delta}{\delta a_{\bar z}} - \frac{k}{4\pi}\partial_z a_{\bar z} }\Psi(a_{\bar z}) = 0.
+\end{equation}
+This is our Schrodinger equation.
+We will see that this same equation arises from the chiral boson CFT.
+
+Specifically, consider \( S[\phi] = \frac{k}{4\pi} \int \Dd2x ~ \partial_{\bar z} \phi \partial_z \phi \), and the charge is \( \rho = \frac{1}{2\pi}\partial_z \phi \). The equation of motion is \( \partial_{\bar z}\rho \sim \partial_{\bar z}\partial_z \phi = 0 \), which is the chiral conservation law. We couple \( \phi \) to a background gauge field \( a \), giving the action \( S[\phi; a] = \frac{k}{2\pi} \int \Dd2x D_{\bar z}\phi \partial_z \phi \) where \( D_{\bar z}\phi = \partial_{\bar z} \phi - a_{\bar z} \) \note{This looks strange}.
+The EOM is \( \partial_{\bar z}\partial_z \phi = \frac{1}{2}\partial_z a_{\bar z} \). This tells us the the charge \( \rho \) is no longer conserved, which is an example of an anomoly \note{what is going on here?}
+The partition function is \( Z[a_{\bar z}] = \int D\phi~\e^{-S[\phi, a]}, \) which obeys
+\begin{equation}
+    \parentheses{\partial_{\bar z} \frac{\delta}{\delta a_{\bar z}} - \frac{k}{4\pi}\partial_z a_{\bar z}}Z[a_{\bar z}] = 0.
+\end{equation}
+The LHS can be seen to result in \( \angles{\partial_{\bar z}\partial_z \phi - \frac{1}{2}\partial_z a_{\bar z}} \), which vanishes by the EOM.
+
+Hence we see that \( \Psi(a_{\bar z}) = Z[a_{\bar z}] \). This provides a relationship between the boundary correlation functions (generated by the partition function) and the bulk CS wavefunction.
+
+\note{This seemed a bit ad hoc. Where did our strange form of \( D_{\bar z}\phi \) come from?}
+
+
+
+\subsection{General abelian anyon theories, Lagrangian subgroups, and gapped edge theories}
+
+\emph{From \cite[Sec.~3]{ellison2022pauli-stabilize}.}
+
+A general abelian anyon theory is a pair \( (A, \theta) \), where \( A \) is a finite abelian group and \( \theta\colon A \to \U(1) \). From \( \theta \), define \( B(a, b) = \frac{\theta(ab)}{\theta(a)\theta(b)} \).
+From \cite[Fig.~8]{ellison2022pauli-stabilize}, we have the constraints that
+\begin{equation}
+    \theta(a^n) = \theta(a)^{n^2}, \qquad B(a^n, b) = B(a,b)^n.
+\end{equation}
+Defining \( q \) by \( \theta(a) = \e^{2\pi\i q(a)} \), we see that \( q(a^n) = n^2 q(a) \) and \( b(a,b) = q(ab)-q(a)-q(b) \) is bilinear.
+These conditions define a quadratic form.
+Hence, abelian anyon theories are classified by quadratic forms.
+Non-degenerate quadratic forms correspond to when every anyon braids nontrivially with at least one other anyon.
+
+Condensing a boson \( b \) corresponds to proliferating the \( b \) quasiparticles. That is, pairs of \( b \) bosons can be created and destroyed without affecting the ground state.
+Suppose we want to condense a boson \( b \) (in the Pauli stabilizer formalism, we add the local string operators of \( b \) to the stabilizer group). This then corresponds to identifying \( b \) with the trivial anyon since it is no longer an excitation.
+Then every other anyon in \( A \) needs to braid trivially with the condensed \( b \). An anyon \( a \in A \) that does not braid nontrivially with \( b \) becomes confined, meaning that it is not a local excitation because the energetic cost of separating a pair of confined anyons grows linearly with the separation.
+In other words, by condensing \( b \), we set its Wilson loop operators to be trivial. Then the Wilson loop for every other anyon \( a \) must commute with the Wilson loop for \( b \). If it does not, then this must mean that the Wilson loop for \( a \) is no longer a Wilson loop of the theory, and so must not map us between degenerate ground states.
+
+We can see confinement in the stabilizer formalism as follows. By adding the local string operators \( C_j \) for \( b \) to the stabilizer group, this means that the Hamiltonian is now \( -\sum_i A_i - \sum_j C_j\), where \( A_i \) are the original stabilizer terms. Let string operator \( D(x) \) be for creating an anyon \( a \) and its antiparticle \( a^{-1} \) with a separation \( x \). If \( D(x) \) dos not commute with \( C_j \) (meaning that their Wilson loops do not commute), then it will not commute with order of \( x \) different \( C_j \) (since in the Wilson loop language it does not matter where they cross). So if \( \ket\psi \) is a ground state of \( H \) with energy \( 0 \) by convention, then \( \bra\psi D(x)^\dag H D(x)\ket\psi = \bra\psi D(x)^\dag [H, D(x)]\ket\psi \sim \bigO(x) \).
+
+Thus, we see that upon condenstation of \( b \), all anyons that braid nontrivially with \( b \) become confined (and hence not a part of the resulting anyonic theory).
+The remaining anyonic theory is hence all anyons that braid trivially with \( b \).
+But of course since \( b \) can be created and destroyed freely, all anyons that are related by \( b \) must be equivalent; i.e.~we have an equivalence relation \( a \sim ab \). In other words, by setting the Wilson loops for \( b \) to be the identity, the Wilson loops for \( a \) and for \( ab \) must be the same.
+
+
+Of course we can only condense bosons, because in order to identify \( b \) with \( 1 \), we need that \( \theta(b) = \theta(1) = 1 \).\footnote{%
+    In the stabilizer formalism, you can't condense fermions because you can't project into simultaneous eigenspace of anticommuting operators. Condensed subspaces in the stabilizer context are defined by eigenspaces of short string operators, and they generate a group. If this group is abelian, then you can measure all of these generators and project onto the eigenspaces. For non-bosons, this doesn't work because the moment you add two string operators, it will contain products of string operators that cross, and for non-bosons they don't commute so the group is non abelian. Specifically, because non-bosons braid non trivially with themselves, so their short string operators must not all commute. So there doesn't exist a stabilizer state that's the simultaneous stabilizer state.}
+
+Finally, we can condense a set \( \set{b_i} \) of bosons as long as they have trivial mutual braiding statistics.
+
+
+
+
+
+\paragraph{Lagrangian subgroups}
+
+\emph{Starting with the last paragraph of page of 14 of \cite{ellison2022pauli-stabilize} and starting with \cite[Sec.~3B]{levin2013protected-edge-}.}
+
+Given an anyonic theory \( (A, \theta) \), a Lagrangian subgroup \( L \) is a subgroup of \( A \) comprised of bosnic anyons such that
+\begin{enumerate}
+    \item \( \forall a,b\in L \), \( B(a,b) = 1 \), and
+    \item \( \forall a \in A \setminus L \), \( \exists b \in L \) s.t.~\( B(a,b) \neq 1 \).
+\end{enumerate}
+The existence of a Lagrangian subgroup signals the potential for a gapped boundary in a topologically ordered system. Specifically, a Hamiltonian whose excitations are described by \( (A, \theta) \) admits a gapped boundary iff \( (A, \theta) \) has a Lagrangian subgroup.
+
+Let's unpack this. Recall above we showed that the boundary of a \( \U(1) \) CS theory is a gapless chiral boson. A similar result holds for \( \U(1)^{n+n} \). More generally, it seems \note{prove/confirm this} that for a \( \U(1)^{n+m} \) theory, we get a chiral theory with \( n \) right moving modes and \( m \) left moving ones. In this note, we have mostly been focusing on \( n=m \) because these correspond to symplectic lattices.
+
+When \( n=m \) and a symmetric \( K \) matrix, we have \( n \) left moving modes and \( n \) right moving gapless modes. We say these modes can be gapped if we can add perturbations to the edge theory to make the modes massive. Specifically, can we add a term of the form \( \sum_{i=1}^{n} U_i \) to gap the modes? It turns out that this can be done iff \( a^T K b = 0 \) for all \( a,b \in \Lambda^\ast / \Lambda \). 
+The idea is that the terms that we can add to the edge to gap the theory are the short string operators truncated on the boundary corresponding to the bosons of the Lagrangian subgroup. 
+Adding these to the edge condenses the bosons and therefore confines all the anyons that braid nontrivially with $\mathcal L$ (ie.~makes them immobile). 
+It follows that the ground state on the boundary can contain bosons from $\mathcal L$, but all anyons that braid nontrivially with $\mathcal L$ (which, by definition of a Lagrangian subgroup, is all the remaining anyons) cannot move freely, therefore gapping the chiral modes.\footnote{I think it's something like this: the gapless-ness is the fact that the short truncated string operators creating an anyon on the boundary commute with all bulk stabilizers, so the anyons can essentially move freely on the boundary. By condensing a Lagrangian subgroup and therefore confining the rest of the anyons, there are no longer any mobile anyons, and so the modes are no longer gapless.}
+% So I think what is happening is that the Lagrangian subgroup (correponding to the set \( \set{a_1,\dots,a_\ell} \) that satisfy \( a_i^T K a_j = 0 \)) denotes all the modes that \emph{can be} gapped. Then everything outside of the Lagrangian subgroup cannot be gapped.\footnote{I think the idea is that the terms $U_i$ that we can add to the edge theory to gap the theory are exactly the string operators truncated on the boundary corresponding to the bosons of the Lagrangian subgroup. Since these bosons can be condensed, the truncated string operators added as $U_i$ to the Hamiltonian penalize (with constant energy) the boson. So these bosons become gapped. But those outside of the Lagrangian subgroup cannot be gapped.}
+The rough argument/proof of this result is in \cite[Ap.~A]{levin2013protected-edge-} for the fermionic case and Ap.~E for the bosonic case. It is not hard to understand, so that's nice!
+
+
+
+
+
+
+
+
+\subsection{Chern-Simons theory and CFT}
+
+\note{Find good reference}
+
+
+
+
