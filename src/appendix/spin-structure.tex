@@ -1,0 +1,104 @@
+\section{Spin structure}
+\label{sec:spin-structure}
+
+In the notes, we focused primarily on bosonic Chern-Simons theories. Fermionic CS theories require the choice of a spin structure. Here, I will review spin structures.
+
+\note{To do: check out \cite[Sec.~46.7]{grensing2013structural-aspe} and see if there's anything more to add here.}
+
+
+\subsection{\texorpdfstring{\( k \)}{k} can be odd of spin Chern-Simons}
+
+Let's start by restricting to \( \U(1) \) CS theories. From \cref{sec:chern-classes}, \( F / 2\pi \in H^2_{DR}(M, \bbR) \).
+Since \( \bbR \) is a field, \( H^\ast(M, \bbR) \cong \Hom(H_\ast(M), \bbR) \).
+By de Rham's theorem, \( H^\ast_{DR}(M, \bbR) \cong H^\ast(M, \bbR) \cong \Hom(H_\ast(M), \bbR) \) via \( \omega \in H^\ast_{DR}(M, \bbR) \) maps to \( (H_\ast(M) \ni c \mapsto \int_c \omega \in \bbR) \in \Hom(H_\ast(M), \bbR) \).
+Thus, we see that \( F / 2\pi \in \Hom(H_2(M), \bbZ) \), and thus \( F \in H^2(M, \bbZ) \)\footnote{\url{https://math.stackexchange.com/questions/399507/how-do-i-know-when-a-form-represents-an-integral-cohomology-class}}.
+
+Since \( F/2\pi \in H^2(M, \bbZ) \), we know\footnote{\url{https://math.stackexchange.com/q/29797/395731}} that the cup product with itself is an element of \( H^4(M, \bbZ) \), and hence
+\begin{equation}
+    \frac{k}{8\pi^2}\int F \wedge F = \frac{k}{2}I
+\end{equation}
+where \( I \in \bbZ \).
+if \( k \) is even, then the whole thing is thus an integer with or without a spin structure.
+If \( k \) is odd, then the CS theory is only well-defined if \( I \in 2\bbZ \).
+A spin four-manifold must have even intersection form\footnote{\url{https://en.wikipedia.org/wiki/Intersection_form_of_a_4-manifold}}, and the converse. Thus, if \( M \) is spin, then \( \int (F/2\pi)\wedge (F/2\pi) = I \in 2\bbZ \) so that the CS is well-defined, and the converse.
+\note{To do: understand Wu's formula via Stiefel-Whitney classes \cite[Thm.~11.7]{nakahara2003geometry-topolo}}
+Thus, we now understand why spin CS theories work for arbitrary integer \( k \), while bosonic CS theories only work when \( k \) is even.
+
+
+There is another way to prove that \( \frac{1}{4\pi^2}\int_N F \wedge F \in 2\bbZ \) for a closed manifold \( N \) using the index theorem for the Dirac operator \cite[pp.~412]{dijkgraaf1990topological-gau} \note{sounds cool, work thorugh this!}.
+
+
+
+\subsection{When we want Spin vs \texorpdfstring{\( \text{Spin}^\bbC \)}{SpinC}}
+
+\emph{From \cite{avis1980generalized-spi}}
+
+(I will be a bit sloppy going back and forth talking about principle bundles and their associated vector bundles; this does not really matter since by definition their transition functions are the same)
+
+When we have a Riemannian manifold \( (M, g) \) with \( n=\dim M \), the transition functions lie in \( \O(n) \).
+If we can reduce the transition functions to lie in \( \SO(n) \), then \( M \) is orientable.
+Many objects we deal with transforms in a representation of \( \SO(n) \) and is thus acted on by these transition functions accordingly.
+However, fermions transform in a projective represtation of \( \SO(n) \), which corresponds to a representation of the double cover \( \operatorname{Spin}(n) \).
+Thus, we need a principle \( \operatorname{Spin}(n) \)-bundle. We construct such a bundle by lifting the transition functions from the original \( \SO(n) \)-bundle. Spinors are then sections of the associated vector bundle.
+Refer to Ref.~\cite[Ch.~11]{nakahara2003geometry-topolo} for how we eventually find that the first Stiefel-Whitney class tells us whether the manifold is orientable and the second Stiefel-Whitney class tells us if it is spin.
+
+On the other hand, sometimes requiring a Spin bundle is unnecessarily restrictive. In particular, suppose that we have a fermion that is charged under a \( G \)-gauge field. Let \( \tilde G \) be a double cover, \( G = \tilde G / \bbZ_2 \). We could take a \( G\times \SO(n) \)-bundle and try to lift it to a \( G\times \Spin(n) \)-bundle, in which case we run into the same analysis as before.
+There are cases, though, where the second SW class is nonzero (and so we cannot do the lifting) and yet we can still define fermions!
+We assume that the center \( \bbZ_2 \) factors of \( \tilde G \) and \( \Spin(n) \) act the same on the fermions.
+In this case, the group that couples to the fermions is actually \( (\tilde G \times \Spin(n)) / \bbZ_2 \).
+So we actually only need a \( \Spin^G(n) \)-bundle.
+
+So we care about \( \Spin^G(n) = \Spin(n) \times_{\bbZ_2} G \), where we have the \( \bbZ_2 = \{e, a\} \) equivalence \( (u, g) \sim (-u, ag) \) for \( u\in\Spin(n), g\in G \). For some reason, \( \Spin^\bbC \coloneqq \Spin^{\U(1)} \).
+
+
+\subsubsection*{Obstructions}
+
+In the case of \( \Spin \) bundles, the second SW class was an obstruction.
+In the case of \( \Spin^G \) bundles, it turns out that the third \emph{integral} SW class is an obstruction. Let's show the following (from Wikipedia).
+
+\begin{proposition}
+    A \( \Spin^\bbC \) structure exists on \( M \) iff \( M \) is orientable and its second SW class (an element of \( H^2(M, \bbZ_2) \)) is in the image of \( H^2(M, \bbZ) \to H^2(M, \bbZ_2) \). Equivalently, this is iff the third integral SW class (an element of \( H^3(M, \bbZ) \) vanishes).
+\end{proposition}
+\begin{proof}[Proof sketch]
+    Using the short exact sequence \( 0 \rightarrow \bbZ \xrightarrow{\times 2} \bbZ \to \bbZ_2 \to 0 \), we get the long exact sequence in cohomology (see my other notes on the Ext functor, etc)
+    \begin{equation}
+        \dots \to H^2(M, \bbZ)  \xrightarrow{\times 2} H^2(M, \bbZ) \to H^2(M, \bbZ_2) \xrightarrow{\beta} H^3(M, \bbZ) \to \dots
+    \end{equation}
+    Apparently \( \beta \) is something called the Bockstein homomorphism.
+    Clearly the two iff's are equivalent by exactness; ie.~by exactness, the image of the second SW class is in \( H^2(M, \bbZ) \to H^2(M, \bbZ_2) \) iff it is in the kernel of \( \beta \).
+    It turns out that the third integral SW class is equal to \( \beta \) on the second SW class (not sure why this is exactly, I suppose I need to learn more about the Bockstein homomorphism).
+
+    Now we show the first iff. Suppose that the second SW class \( w_2 \in H^2(M, \bbZ_2) \) is nonzero. Suppose that we have a \( \Spin \) ``bundle'' (not actually a bundle because \( w_2 \neq 0 \) so it fails the triple overlap condition, so I'll just keep quotes around it).
+    The failure of a lift comes from the triple overlap conditions with the minus signs coming from \( \bbZ_2 \).
+    So to cancel this issue, we tensor our \( \Spin \) ``bundle'' with a \( \U(1) \) ``bundle'' that has the same \( w_2 \).
+
+    A true \( U(1) \) bundle is classified by its Chern class in \( H^2(M, \bbZ) \). Going through the sequence, we double the class. So legitamate bundles correspond to even elements in the second \( H^2(M, \bbZ) \).
+    By exactness, legitamate bundles correspond to zero elements in the image in \( H^2(M, \bbZ_2) \).
+
+    The \( \U(1) \) ``bundle'' will cancel the obstruction if the image is \( w_2 \). Thus we see that a \( \Spin^\bbC \) bundle exists iff \( w_2 \) is in the image of the natural map \( H^2(M, \bbZ) \to H^2(M, \bbZ_2) \).
+\end{proof}
+
+Apparently every \( 4 \)-manifold has a \( \Spin^\bbC \) structure.
+
+
+
+\subsection{How does the spin structure affect the theory}
+
+\cite[Sec.~2.5,~2.6]{moore2019introduction-to}, \cite{belov2005classification-}
+
+We saw above that a \( \Spin^\bbC \) bundle exists on a four manifold \( M \) iff the second SW class \( w_2 \in H^2(M, \bbZ_2) \) is in the image of the map \( H^2(M, \bbZ) \to H^2(M, \bbZ_2) \).
+In other words, we need an integral lift \( \hat w_2 \in H^2(M, \bbZ) \) of \( w_2 \in H^2(M, \bbZ_2) \).
+We define a spin structure on \( M \) by \( \hat w_2 \).
+Since \( \hat w_2, F/2\pi \in H^2(M, \bbZ) \), their cup product (ie.~wedge product) is in \( H^4(M, \bbZ) \).
+
+In particular, apparently \( \hat w_2 \) is always a characteristic vector, meaning that \( \int F/2\pi \wedge w_2 = \int F/2\pi \wedge F/2\pi \pmod 2 \) \note{why is this?}.
+Thus, we can define the action \( \frac{k}{8\pi^2}\int_M F \wedge (F \wedge \hat w_2) \) and it is well-defined for all \( k\in \bbZ \).
+\note{I'm a little bit confused. In the other notes that I found and as discussed above, they say that \( \int F/2\pi \wedge F/2\pi \in 2\bbZ \), and so the CS theory is immediately well-defined as long as the manifold is spin (ie.~independent of spin structure). But here, it seems like he does not assume this to be the case, but instead uses that \( \hat w_2 \) is a characteristic vector to show that the integral is even.}
+
+\note{In particular, given the discussion above coming from \cite{dijkgraaf1990topological-gau}, it seems like the braiding for a spin CS theory described by a \( K \) matrix would still be given entirely by \( K^{-1} \), and the spin structure doesn't change anything. On the other hand, given the description here in terms of \( \hat w_2 \), it seems like \( \hat w_2 \) might affect the braiding. So what's happening? In particular, from \cite[Eq.~2.355]{moore2019introduction-to}, it seems like the braiding will be discribed by \( (K+\text{something})^{-1}  \).}
+
+
+\note{\cite{belov2005classification-} is better than \cite{moore2019introduction-to}. It seems to match \cite{dijkgraaf1990topological-gau}. But it also has a section about how it depends on spin structure. Need to understand this better. Need to understand how they get to Eq.~2.9. Then, what does Eq.~2.9 imply for braiding. I think it's not supposed to affect anything because it seems equivalent to shifting \( A \to A + \epsilon \), where \( \dd\epsilon=0 \) and \( \int \epsilon \in \{0,1\} \). So it seems like it is just adjusting the holonomies. But in the quantum theory, we integrate over all \( A \), so this shouldn't affect anything. But I think maybe it matters when there is a boundary?}
+
+\note{I think spin structure does not affect the K matrix stuff, and I think it only affects things when we couple to other things. From \cite{belov2005classification-}, it looks like a change in spin structure can be equivalently thought of as \( A \to A + f \). But since the path integral is over all \( A \), this should not affect things in the pure gauge theory.}
+

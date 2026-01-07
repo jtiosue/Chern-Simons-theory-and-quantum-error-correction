@@ -1,0 +1,81 @@
+\section{Higher form symmetries}
+\label{sec:higher-form-symmetries}
+
+\emph{Various bits and pieces taken from \cite{carroll2019spacetime-and-g,mcgreevy2023generalized-sym,gomes2023an-introduction}.}
+
+\begin{proposition}
+    Let \( J^\mu \partial_\mu \) be a vector field and \( J = J_\mu \dd x^\mu \) a one-form, where \( J_\mu = g_{\mu\nu}J^\nu \). Let \( \nabla \) be the Levi-Civita connection with respect to the metric \( g \). Then \( \nabla_\mu J^\mu = 0 \) if and only if \( \dd \star J = 0 \), where \( \star \) is the Hodge star operator.
+\end{proposition}
+\begin{proof}
+    \note{To do: add my proof from my other scratch notes.}
+\end{proof}
+
+This proposition tells us that a conserved vector field can also be thought of as a one-form satisfying \( \dd\star J = 0 \).
+
+Given the current (conserved vector field) \( J^\mu \partial_\mu \), the charge corresponding to the current is
+\begin{equation}
+    Q_\Sigma = \int_\Sigma \star J ,
+\end{equation}
+where \( \Sigma \) is a manifold of codimension \( 1 \) and \( J = J_\mu \dd x^\mu \).
+For example, think of \( \Sigma_1,\Sigma_2 \) as fixed time slices.
+Then
+\begin{equation}
+    Q_{\Sigma_2} - Q_{\Sigma_1} = \int_{\Sigma_2}\star J - \int_{\Sigma_1}\star J = \int_{\partial(\bar\Sigma_1 \cup \Sigma_2)}\star J = \int_{\bar\Sigma_1 \cup \Sigma_2} \dd \star J
+\end{equation}
+by Stoke's theorem. So if \( J \) corresponds to a conserved current so that \( \dd\star J = 0\), then \( Q_{\Sigma_1} = Q_{\Sigma_2} \).
+
+From \cite[Ap,~E]{carroll2019spacetime-and-g}, we have that
+\begin{equation}
+    \int_{\partial M} \star J = \int_{\partial M} \Dd{n-1}y~\sqrt{\det \gamma}~n_\mu J^\mu
+\end{equation}
+where \( \gamma \) is the induced metric. Hence we get a flux, so that \( Q = \int \star J \) is just Gauss's law.
+
+From this persepective, a symmetry generator is the same as a topological operator. The points is that we can deform \( \Sigma \) without changing \( Q_\Sigma \). Suppose that we insert a charge at some point \( x \) via a local operator. Then \( Q_\Sigma \) does not change when deforming \( \Sigma \) unless we cross the point \( x \). So charged paticle worldlines cannot end except on charged operators.
+
+
+\note{To do: add the Noether persepective.}
+
+\paragraph*{Zero form (ordinary) symmetry}
+Given \( Q_\Sigma \), we can define a symmetry operator \( U_\alpha(\Sigma) = \e^{\i \alpha Q_\Sigma} \).
+For simplicity, let's assume that the symmetry is abelian \note{add general case}.
+Local opertors charged under the symmetry by definition transform under the symmetry as
+\begin{equation}
+    O(x) \to U_\alpha(\Sigma)O(x) U_\alpha(\Sigma)^\dag = \e^{\i q \alpha} O(x),
+\end{equation}
+where \( q \) is the charge of the operator. This means that \( \brackets{Q_\Sigma, O} = qO \).
+For example, consider bosonic ladder operators \( a, a^\dag \). Let \( Q = a^\dag a \) and \( O = (a^\dag)^q \). Then it is easy to check that \( O \) has charge \( 2 \) under \( \e^{2\i Q} \).
+
+\paragraph*{One form symmetry}
+Suppose instead we have a two-form \( J = \frac{1}{2}J_{\mu\nu} \dd x^\mu \wedge \dd x^\nu \) where \( J_{\mu\nu} \) is completely antisymmetric. Suppose that \( \dd\star J = 0 \).
+As before, for any codimension \( 2 \) locus \( \Sigma \) in spacetime, \( Q_\Sigma = \int_\Sigma \star J \) depends only on the topological class of \( \Sigma \). The symmetry operator is again \( U_\alpha(\Sigma) = \e^{\i\alpha Q_\Sigma} \).
+
+\note{To do: add my notes on how we can argue that charged opeators must be closed loops.}
+
+\note{To do: add my notes on why \( p \)-form symmetries always commute with each other for \( p > 0 \).}
+
+\note{To do: add notes on gauging higher form symmetries. See \cite[Sec.~4.1]{ebisu2024anomaly-inflow-}, \cite{gaiotto2015generalized-glo}, Ethan's notes, and my Slack conversation with Juio. Actually, \cite{bhardwaj2023lectures-on-gen} are really good notes on higher-form and higher-group symmetries!}
+
+
+\subsection{Rough understanding of higher-form symmetries in Chern-Simons theory}
+
+Let's consider explicitly the CS theory describing the standard toric code.
+
+\begin{itemize}
+    \item The Wilson loops \( W_a(C) \) are the 1-form symmetry operators. The ground state spontaneously breaks the 1-form symmetry in the sense that I have four different ground states that the symmetry moves me between (ie.~\( W_a(C) \) are logical operators). I think this is why people say that topological phases of matter can be thought of spontaneous symmetry breaking, except that now it is for higher form symmetries.
+    \item A symmetry defect in a topologically ordered system with symmetry \( G \) is by definition\footnote{\url{https://physics.stackexchange.com/a/800539/114833}} an extrinsic defect that ``carries'' a nontrivial group element \( g\in G \). This means that anyons are acted upon \( g \) after being taken around the symmetry defect. \( g \) can act on different anyons differently. There might also be some notion of an irrep here. In this sense, it sounds like anyons are symmetry defects, because when an anyon goes around another anyon, it is acted on by the one-form symmetry. Often, people refer to anyons as intrinsic defects as opposed to extrinsic defects. However, at least in the case of abelian CS theory, recall that the Wilson loops are both the one-form symmetry operators \emph{and} the charged operators. Thus, anyons really are symmetry defects.
+    \item If I ``gauge'' the one-form symmetry, it means I want to make the global symmetry local. So that means that I am asking for broken Wilson loops to be symmetries. But of course at the end of broken Wilson loops, I have anyons. So that's why ``gauging proliferates symmetry defects'', because when I gauge the theory, I get a proliferation of anyons. More accurately, ``gauging'' really means by definition making symmetry defects dynamical.
+    \item We can consider subgroups of the one-form symmetry corresponding to a subgroup of anyons. When trying to gauge a symmetry, we might find an anomaly (by definition, an anomaly is an obstruction to gauging). It can happen that we can gauge one subgroup or another, but not both (recall for the toric code case, our one-form symmetry is \( \bbZ_2\oplus \bbZ_2 \); each \( \bbZ_2 \) individually is non-anomalous, but together they are anomalous). \note{Understand this better}
+          If I have a subgroup of anyons that are all bosons and all mutually braid trivially, then I can gauge -- ie.~require that their associated cut Wilson loops should also be symmetries. So in the stabilizer formalism, this corresponds to adding the local string operators to the stabilizer group, so that this subgroup of anyons are no longer excitations, and so we have in fact condensed these anyons. So for such a non-anomalous subgroup of anyons, I can gauge that part of the associated symmetry (ie.~I can gauge the subgroup of the group of all Wilson operators corresponding the the Wilson loops of the associated anyons).
+          In that sense, the largest subgroup of the 1-form symmery that I can gauge is given by Lagrangian subgroups of the anyon model.
+    \item If I try to to gauge the symmetry with both bosons in the toric code case, something goes wrong because these they do not braid trivially. I'm not exactly sure what goes wrong \note{Understand this better}. I think it is pretty easier to understand from the stabilizer picture, but I'd like to understand it on the CS side.
+    \item Similarly, if I instead try to gauge a part of the symmetry corresponding to the fermions, something goes wrong. \note{Understand this better}
+    \item So I take the CS theory corresponding to the toric code. I gauge one of the non-anomalous \( \bbZ_2 \) symmetries. This is the same as condensing the corresponding boson.
+          The resulting theory is a \( \bbZ_2 \) protected SPT.
+          This can be seen roughly as follows.
+          Recall that the Wilson loops in the toric code are strings of \( X \) and \( Z \) operators. Let's gauge one of the \( \bbZ_2 \)'s (eg.~let's say that we add the short string operators \( XX \)'s to the stabilizer group).
+          This projects us onto a definite eigenspace of one of the zero-form symmetry operators (recall that the toric code has the zero-form symmetry (ie.~global symmetry) operators \( \prod_{i,j}X_{i,j} \) and \( \prod_{i,j}Z_{i,j} \); by adding the short string \( XX \) operators to the stabilizer group, we can think of that as measuring these operators, which projects us onto a definite eigenspace of \( \prod_{i,j}X_{i,j} \), which gives us an index \( I \)).
+          Thus, our state is now a \( \bbZ_2 \) SPT, in the sense that we can easily (with a local operator) change the value of \( I \), but only if that local operator does not commute with the symmetry \( \prod_{i,j}X_{i,j} \).
+          \note{I think this is roughly correct}
+\end{itemize}
+
+To understand all of this better (ie.~gauging higher form symmetries), see Ethan's notes and the other references mentioned above \note{to do!}.

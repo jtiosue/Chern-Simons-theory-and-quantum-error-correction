@@ -1,0 +1,50 @@
+\section{Quantum Hall}
+
+\emph{Here I follow \cite[Ch.~5,6]{tong2016lectures-on-the}. }
+
+Let's suppose we want to figure out how a current \( J^\mu \) responds to an electric and magnetic field. The electric and magnetic fields are described by a \( \U(1) \) gauge field \( A \), and as before, we have the natural coupling \( S[A] = \int \Dd3x J^\mu A_\mu \), where the current is conserved giving \( \partial_\mu J^\mu = 0 \) so that the coupling is gauge invariant (as I said above, I think we have to assume the metric on the spacetime is the Minkowski metric so that \( \nabla_\mu = \partial_\mu \), but I'm not totally sure about this).
+We assume that at low-energies, there are no degrees of freedom that can affect the physics when the system is perturbed. The most obvious requirement is then that there is a gap to the first excited state.
+
+The partition function is
+\begin{equation}
+    Z[A] = \int D(fields)~\exp\bargs{\i S[{\rm fields}; A]} = \exp\bargs{\i S_{\rm eff}[A]},
+\end{equation}
+where ``fields'' refers to dynamical degrees of freedom, and the action incluldes the coupling \( A_\mu J^\mu \) from above.
+Our goal is to integrate out the fields and compute the effective action. From this effective action, we can figure out the response of the current to electric and magnetic fields, since due to the \( A_\mu J^\mu \) coupling,
+\begin{equation}
+    \frac{\delta S_{\rm eff}[A]}{\delta A_\mu(x)} = \angles{J^\mu(x)} .
+\end{equation}
+
+We don't know anything about the microscopic physics (e.g.~``fields''). Instead we just write down all possible terms that can be in \( S_{\rm eff} \) and focus on the important ones.
+First, we require that it be gauge invariant, and second, since we only care about long distances, we require that \( S_{\rm eff}[A] \) be a local functional; that is, can be written as \( \int \Dd3x \dots \). Since we are interested in low energies (below the gap), the terms with the fewest powers of \( A \) will be the most important. Similarly, since we are interested only in long distances, the terms with the fewest derivatives will be the most important.
+
+\subsection{3+1 dimensions}
+
+By rotational invariance, the first terms that we can write down in (3+1)D are
+\( S_{\rm eff}[A] = \int \Dd4x ~\epsilon \bm E \cdot \bm E - \frac{1}{\mu} \bm B \cdot \bm B + \alpha \bm E \cdot \bm B \).
+He says that \( \frac{\delta S_{\rm eff}[A]}{\delta A_\mu(x)} \) gives free currents. I think that means the currents are zero? Which would make sense since \( S_{\rm eff} \) depends only on \( F = \dd A \) not \( A \).
+\note{Understand this better}
+
+
+\subsection{2+1 dimensions}
+
+In \( (2+1) \)D, we can write down the CS term \( A \wedge F \). This is consistent with rotational invariance.
+We have that
+\begin{salign}
+    &\angles{J^0} = \angles\rho = \frac{k}{4\pi} (F_{12} - F_{21}) = \frac{k}{2\pi} B  \\
+    %
+    &\angles{J^1} = \frac{k}{2\pi} F_{20} = - \frac{k}{2\pi}E_y \\
+    %
+    &\angles{J^2} = \frac{k}{2\pi} F_{01} = \frac{k}{2\pi}E_x  .
+\end{salign}
+Recall we are thinking of \( A \) as an additional gauge field over and above the original quantum Hall magnetic field (this is because the original magnetic field generates a state, and now we want to see the conductivity of that state, so we have to subject it to a new gauge field and see how it responds). We see that
+\( \bm J = \sigma \bm E \), with \( \sigma_{xx} = \sigma_{yy} = 0 \) and \( -\sigma_{xy} = \sigma_{yx} = \sigma_H = k / 2\pi  \)\footnote{Note that rotational invariance around the \( z \) axis tells us that we should have invariance with \( x \to y \) and \( y \to -x \). This means that \( \sigma_{xy} = -\sigma_{yx} \).\note{Why exactly is this?}}.
+This is exactly the integer quantum Hall effect.
+
+
+\subsection{Anomaly inflow}
+
+\note{See section 4.4 of \url{http://www.damtp.cam.ac.uk/user/tong/gaugetheory/4lattice.pdf} and }
+
+
+

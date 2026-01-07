@@ -1,0 +1,58 @@
+\section{Classifying spaces and cohomology}
+
+\emph{From \cite{dijkgraaf1990topological-gau}.}
+
+
+A classifying space of a \( BG \) topological group \( G \) is the base space of a principle \( G \)-bundle \( EG \) called the universal bundle.
+Any \( G \)-bundle \( E \to M \) allows a bundle map into the universal bundle \( EG \to BG \), and any two such morphisms are homotopic.
+The induced map between base spaces is \( \gamma \colon M \to BG \), the classifying map.
+The topology of \( E \) is entirely determind by the homotopy class of \( \gamma \).
+It can be shown that up to homotopy \( BG \) is uniquely determined by requring \( EG \) to be contractible (eg.~see my other notes).
+
+The group cohomology of a group can  be defined as the cohomology of \( BG \).
+The elements of \( H^\ast(BG, \bbZ) \) are called characteristic classes, since under the pullback \( \gamma^\ast \) they give rise to cohomology classes in \( H^\ast(M, \bbZ) \) that depend only on the pullback \( \gamma^\ast \), and thus they give rise to cohomology classes in \( H^\ast(M, \bbZ) \) that depend only on the topology of the bundle \( E \).
+
+Consider the SES
+\begin{equation}
+    0 \to \bbZ \to \bbR \to \bbR/\bbZ \to 0 .
+\end{equation}
+Using the standard property of cohomology and SESs (see my notes on the Ext functor), we then get the LES
+\begin{equation}
+    0 \to H^0(BG, \bbZ) \to H^0(BG, \bbR) \to H^0(BG, \bbR/\bbZ) \to H^1(BG, \bbZ) \to \dots
+\end{equation}
+Apparently \cite[Eq.~2.5]{dijkgraaf1990topological-gau}, for compact Lie groups\footnote{\url{https://mathoverflow.net/questions/61784/cohomology-of-bg-g-compact-lie-group}}, \( H^{2n+1}(BG, \bbR) = 0 \), and for finite groups, \( H^\ast(BG, \bbR) = 0 \). So we get that for finite groups,
+\begin{equation}
+    H^{k-1}(BG, \bbR/\bbZ) \cong H^k(BG, \bbZ).
+\end{equation}
+
+Recall from \cref{sec:chern-classes,sec:spin-structure}, the Chern form \( \Tr F\wedge F \) (with appropriate normalization) defines an element of the integral de Rham cohomology class \( H^4(M, \bbZ) \).
+Using \( \gamma \), such a class comes from an element of \( H^4(BG, \bbZ) \).
+So we see that CS theories are defined by an element of \( H^4(BG, \bbZ) \).
+\note{Is this the full classification? How much do \( M \) and \( \gamma \) matter?}
+
+For finite groups, we see then that CS theories are defined by an element of \( H^3(BG, \bbR/\bbZ) = H^3(BG, \U(1)) \).
+
+
+Recall from \cref{sec:chern-classes}, the Chern form \( \Tr F\wedge F \) defines a de Rham cohomology class \( H^4(M, \bbR) \).
+Using the LES above, \( H^4(M, \bbR) \cong H^4(M, \bbZ) / H^3(M, \bbR/\bbZ) \).
+Via \( \gamma \), such a class comes from a characteristic class \( H^4(BG, \bbR) \).
+We will now show that  \(  H^3(M, \bbR/\bbZ) = 0 \), so that, by using \( \gamma \), the CS form comes from a characteristic class in \( H^4(BG, \bbZ) \).
+
+\begin{lemma}
+    \(  H^3(M, \bbR/\bbZ) = 0 \).
+\end{lemma}
+\begin{proof}
+    By Poincare duality, \( H^3(M, \bbR) \cong H_{1}(M, \bbR) \) and \( H^1(M, \bbR) \cong H_{3}(M, \bbR) \), since \( M \) is four dimensional.
+    Thus, \( H_{3}(M, \bbR) = 0  \).
+    Therefore, from the universal coefficient theorem,
+    \begin{equation}
+        H^3(M, \bbR/\bbZ) \cong \operatorname{Ext}_\bbR^1(H_2(M, \bbR), \bbR/\bbZ).
+    \end{equation}
+    As usual, \( H_2(M, \bbR) \) has no torsion and so is free.
+    We know that \( \operatorname{Ext}_R^{i>0}(A,B) = 0\) when \( A \) is a projective module. Hence, we have that \( H^3(M, \bbR/\bbZ) \cong 0 \).
+\end{proof}
+
+
+\note{Not sure how totally correct this is. It doesn't seem like we used anything about how the integral of the Chern form is integral. But maybe it's implicit in the characteristic class. In \cite{dijkgraaf1990topological-gau}, they go about it a big different. Maybe I should work through that at some point.}
+\note{yes indeed I think the above is wrong, but it is fixed (TO DO) easily by instead using an argument similar to the one given in the beginning of \cref{sec:spin-structure}.}
+
